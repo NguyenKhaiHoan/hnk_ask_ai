@@ -3,14 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/src/core/common/screens/authentication_screen.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _emailTextController;
   late FocusNode _emailFocusNode;
   late TextEditingController _passwordTextController;
@@ -36,19 +36,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AuthenticationScreen(
-        title: 'Create your account'.hardcoded,
-        description:
-            'Please note that phone verification is required for signup. Your number will only be used to verify your identity for security purposes.'
-                .hardcoded,
+    return AuthScreen(
+        title: 'Welcome back'.hardcoded,
         text1Controller: _emailTextController,
         focusNode1: _emailFocusNode,
         text2Controller: _passwordTextController,
         focusNode2: _passwordFocusNode,
         buttonText: 'Continue'.hardcoded,
-        onSubmitPressed: () => context.goNamed('enterInfomation'),
-        promptText: 'Already have an account?'.hardcoded,
-        actionText: 'Login'.hardcoded,
-        onActionTextPressed: () => context.goNamed('login'));
+        onSubmitPressed: () => context.goNamed('chat'),
+        promptText: 'Don\'t have an account?'.hardcoded,
+        actionText: 'Sign up'.hardcoded,
+        onActionTextPressed: () => context.goNamed('signUp'));
   }
 }

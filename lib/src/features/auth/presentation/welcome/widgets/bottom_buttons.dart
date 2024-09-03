@@ -17,7 +17,7 @@ class BottomButtons extends StatelessWidget {
             topRight: Radius.circular(38),
           ),
         ),
-        child: const AuthenticationButtons(),
+        child: const AuthButtons(),
       ),
     );
   }

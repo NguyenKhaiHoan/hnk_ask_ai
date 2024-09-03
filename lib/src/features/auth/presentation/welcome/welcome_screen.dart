@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 
 import '../../../../../gen/fonts.gen.dart';
-import '../../../../core/common/widgets/authentication_buttons.dart';
+import '../../../../core/common/widgets/auth_buttons.dart';
 import '../../../../core/constants/constant.dart';
 
 part 'widgets/animated_text.dart';

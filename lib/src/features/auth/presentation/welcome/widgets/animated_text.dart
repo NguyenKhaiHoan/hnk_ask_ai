@@ -15,7 +15,7 @@ class AnimatedTexts extends StatelessWidget {
             left: AppSizes.p20, right: AppSizes.p20, bottom: AppSizes.p64),
         child: AnimatedTextKit(
           animatedTexts: [
-            _buildTypewriterText('AskAI'.hardcoded, cursor, textStyle),
+            _buildTypewriterText('Ask AI'.hardcoded, cursor, textStyle),
             _buildTypewriterText(
                 'Let\'s brainstorm'.hardcoded, cursor, textStyle),
             _buildTypewriterText('Let\'s go'.hardcoded, cursor, textStyle),

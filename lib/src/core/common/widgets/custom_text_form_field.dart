@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String value) onChanged;
   final String hintText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
   const CustomTextFormField(
       {super.key,
@@ -15,7 +16,8 @@ class CustomTextFormField extends StatelessWidget {
       required this.focusNode,
       required this.onChanged,
       required this.hintText,
-      this.suffixIcon});
+      this.suffixIcon,
+      this.prefixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: (value) => onChanged,
       decoration: InputDecoration(
         suffix: suffixIcon,
+        prefix: prefixIcon,
         hintText: hintText,
         hintStyle:
             AppStyles.paragraph1Regular().copyWith(color: AppColors.masala),

@@ -6,7 +6,7 @@ import 'package:hnk_ask_ai/src/core/common/widgets/custom_text_form_field.dart';
 import 'package:hnk_ask_ai/src/core/enums/ai_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 import 'package:hnk_ask_ai/src/core/utils/system_util.dart';
-import 'package:hnk_ask_ai/src/features/chat/domain/model/ai_model.dart';
+import 'package:hnk_ask_ai/src/features/chat/domain/ai_model.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/chat/widgets/chat_drawer.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/chat/widgets/chat_message.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/chat/widgets/prompt_examples.dart';

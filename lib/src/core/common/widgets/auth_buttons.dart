@@ -6,14 +6,14 @@ import 'package:hnk_ask_ai/src/core/constants/constant.dart';
 import 'package:hnk_ask_ai/src/core/enums/button_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 
-class AuthenticationButtons extends StatelessWidget {
+class AuthButtons extends StatelessWidget {
   final bool hasOnlySocialButton;
   final bool isOutlinedButton;
   final ButtonType? type;
   final Color? backgroundColor;
   final Color? textColor;
 
-  const AuthenticationButtons({
+  const AuthButtons({
     super.key,
     this.hasOnlySocialButton = false,
     this.isOutlinedButton = false,

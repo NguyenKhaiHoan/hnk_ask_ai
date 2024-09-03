@@ -89,19 +89,20 @@ class _FieldChatState extends State<FieldChat> {
   Widget _buildTextField() {
     return Expanded(
       child: CustomTextFormField(
-          textController: _chatTextController,
-          focusNode: _focusNode,
-          onChanged: (value) => setState(() {}),
-          hintText: 'Message'.hardcoded,
-          suffixIcon: Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: SvgIcon(
-              iconPath: Assets.images.microphone.path,
-              iconSize: 20,
-              colorFilter:
-                  const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
-            ),
-          )),
+        textController: _chatTextController,
+        focusNode: _focusNode,
+        onChanged: (value) => setState(() {}),
+        hintText: 'Message'.hardcoded,
+        // suffixIcon: Padding(
+        //   padding: const EdgeInsets.only(top: 5),
+        //   child: SvgIcon(
+        //     iconPath: Assets.images.microphone.path,
+        //     iconSize: 20,
+        //     colorFilter:
+        //         const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
+        //   ),
+        // ),
+      ),
     );
   }
 

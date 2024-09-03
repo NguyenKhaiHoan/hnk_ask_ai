@@ -5,8 +5,8 @@ import 'package:hnk_ask_ai/src/core/constants/constant.dart';
 import 'package:hnk_ask_ai/src/core/enums/button_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 
-class AuthenticationForm extends StatelessWidget {
-  final bool isAuthentication;
+class AuthForm extends StatelessWidget {
+  final bool isAuth;
   final TextEditingController text1Controller;
   final TextEditingController text2Controller;
   final FocusNode focusNode1;
@@ -19,9 +19,9 @@ class AuthenticationForm extends StatelessWidget {
   final String actionText;
   final VoidCallback onActionTextPressed;
 
-  const AuthenticationForm({
+  const AuthForm({
     super.key,
-    required this.isAuthentication,
+    required this.isAuth,
     required this.text1Controller,
     required this.text2Controller,
     this.hintText1,
@@ -63,7 +63,7 @@ class AuthenticationForm extends StatelessWidget {
             onPressed: onSubmitPressed,
           ),
           gapH16,
-          if (isAuthentication)
+          if (isAuth)
             GestureDetector(
               onTap: onActionTextPressed,
               child: Text.rich(

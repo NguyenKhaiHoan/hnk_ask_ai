@@ -60,6 +60,10 @@ dependencies:
   shared_preferences: ^2.3.2
   flutter_markdown: ^0.7.3+1
   flutter_popup: ^3.3.0
+  envied: ^0.5.4+1
+  google_generative_ai: ^0.4.5
+  image_picker: ^1.1.2
+  uuid: ^4.5.0
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +75,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   freezed: ^2.5.7
   flutter_launcher_icons: ^0.13.1
+  envied_generator: ^0.5.4+1
 
 flutter_icons:
   android: true

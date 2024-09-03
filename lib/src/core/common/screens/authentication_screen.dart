@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hnk_ask_ai/src/core/common/widgets/authentication_form.dart';
+import 'package:hnk_ask_ai/src/core/common/widgets/auth_form.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/text_logo.dart';
 import 'package:hnk_ask_ai/src/core/enums/button_type.dart';
 
 import '../../constants/constant.dart';
-import '../widgets/authentication_buttons.dart';
+import '../widgets/auth_buttons.dart';
 import '../widgets/custom_divider.dart';
 
-class AuthenticationScreen extends StatelessWidget {
-  final bool? isAuthentication;
+class AuthScreen extends StatelessWidget {
+  final bool? isAuth;
   final String title;
   final String? description;
   final TextEditingController text1Controller;
@@ -23,9 +23,9 @@ class AuthenticationScreen extends StatelessWidget {
   final String actionText;
   final VoidCallback onActionTextPressed;
 
-  const AuthenticationScreen({
+  const AuthScreen({
     super.key,
-    this.isAuthentication,
+    this.isAuth,
     required this.title,
     this.description,
     required this.text1Controller,
@@ -72,8 +72,8 @@ class AuthenticationScreen extends StatelessWidget {
                             .copyWith(color: AppColors.shipGray),
                       ),
                     gapH32,
-                    AuthenticationForm(
-                      isAuthentication: isAuthentication ?? true,
+                    AuthForm(
+                      isAuth: isAuth ?? true,
                       text1Controller: text1Controller,
                       text2Controller: text2Controller,
                       focusNode1: focusNode1,
@@ -88,11 +88,11 @@ class AuthenticationScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                if ((isAuthentication ?? true)) gapH32,
-                if ((isAuthentication ?? true)) const CustomDivider(),
-                if ((isAuthentication ?? true)) gapH24,
-                if ((isAuthentication ?? true))
-                  const AuthenticationButtons(
+                if ((isAuth ?? true)) gapH32,
+                if ((isAuth ?? true)) const CustomDivider(),
+                if ((isAuth ?? true)) gapH24,
+                if ((isAuth ?? true))
+                  const AuthButtons(
                     hasOnlySocialButton: true,
                     textColor: AppColors.dark,
                     backgroundColor: AppColors.light,

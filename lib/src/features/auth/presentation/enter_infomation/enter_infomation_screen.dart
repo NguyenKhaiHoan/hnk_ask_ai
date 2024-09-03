@@ -36,8 +36,8 @@ class _EnterInfomationScreenState extends State<EnterInfomationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AuthenticationScreen(
-        isAuthentication: false,
+    return AuthScreen(
+        isAuth: false,
         title: 'Tell us about you'.hardcoded,
         text1Controller: _firstNameTextController,
         focusNode1: _firstNameFocusNode,

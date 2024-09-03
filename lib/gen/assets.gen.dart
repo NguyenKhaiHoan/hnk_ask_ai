@@ -111,6 +111,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/openai.svg
   SvgGenImage get openai => const SvgGenImage('assets/images/openai.svg');
 
+  /// File path: assets/images/photo-dark-icon.svg
+  SvgGenImage get photoDarkIcon =>
+      const SvgGenImage('assets/images/photo-dark-icon.svg');
+
   /// File path: assets/images/plus.svg
   SvgGenImage get plus => const SvgGenImage('assets/images/plus.svg');
 
@@ -122,6 +126,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/refresh.svg
   SvgGenImage get refresh => const SvgGenImage('assets/images/refresh.svg');
+
+  /// File path: assets/images/search.svg
+  SvgGenImage get search => const SvgGenImage('assets/images/search.svg');
 
   /// File path: assets/images/submit.svg
   SvgGenImage get submit => const SvgGenImage('assets/images/submit.svg');
@@ -167,10 +174,12 @@ class $AssetsImagesGen {
         microphone,
         newMessage,
         openai,
+        photoDarkIcon,
         plus,
         policy,
         recording,
         refresh,
+        search,
         submit,
         sun,
         suncription,
