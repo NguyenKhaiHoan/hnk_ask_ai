@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1025600239668",
+    "project_id": "askai-22318",
+    "storage_bucket": "askai-22318.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025600239668:android:9be78d290e56a93783b261",
+        "android_client_info": {
+          "package_name": "com.hnk.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-ESPAu4ne5GO9sStPZcW3I_6QvJ197_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

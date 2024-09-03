@@ -1,0 +1,4 @@
+enum MessageSender {
+  askAi,
+  user,
+}

@@ -1,0 +1,118 @@
+name: hnk_ask_ai
+description: "A new Flutter project."
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  ## Localization & Date Format
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  intl_utils: ^2.8.7
+
+  # API Requests
+  retrofit: ^4.1.0
+  dio: ^5.6.0
+  pretty_dio_logger: ^1.4.0
+
+  # Firebase
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
+  google_sign_in: ^6.2.1
+  cloud_firestore: ^5.3.0
+  firebase_storage: ^12.2.0
+  firebase_messaging: ^15.1.0
+  firebase_database: ^11.1.0
+
+  # Push Nitification
+  awesome_notifications: ^0.9.3+1
+
+  # Annotation
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # Image & Lottie
+  cached_network_image: ^3.4.0
+  flutter_svg: ^2.0.10+1
+  lottie: ^3.1.2
+
+  # Navigation
+  go_router: ^14.2.7
+
+  # Other
+  connectivity_plus: ^6.0.5
+  flutter_dotenv: ^5.1.0
+  flutter_screenutil: ^5.9.3
+  equatable: ^2.0.5
+  animated_text_kit: ^4.2.2
+  logger: any # for logging purposes
+  page_transition: ^2.1.0
+  rxdart: ^0.28.0
+  shared_preferences: ^2.3.2
+  flutter_markdown: ^0.7.3+1
+  flutter_popup: ^3.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.12
+  retrofit_generator: ^8.2.1
+  flutter_gen_runner: ^5.7.0
+  json_serializable: ^6.8.0
+  flutter_lints: ^4.0.0
+  freezed: ^2.5.7
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logos/dark-logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/logos/dark-logo-foreground.png"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: Me
+      fonts:
+        - asset: assets/fonts/me/Megrim.ttf
+          weight: 400
+    - family: RoMo
+      fonts:
+        - asset: assets/fonts/ro_mo/RobotoMono-Regular.ttf
+          weight: 400
+    - family: SF
+      fonts:
+        - asset: assets/fonts/sf/SFProDisplay-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/sf/SFProDisplay-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/sf/SFProDisplay-Bold.ttf
+          weight: 700
+
+flutter_intl:
+  enabled: true
+  arb_dir: lib/src/core/localization
+  output_dir: lib/src/core/localization/gen
+  main_locale: en
+
+flutter_gen:
+  output: lib/gen/
+
+  integrations:
+    flutter_svg: true
+    lottie: true
