@@ -1,4 +1,4 @@
 enum AiType {
-  ai35,
-  ai4,
+  gemini15Flash,
+  gemini15Pro,
 }

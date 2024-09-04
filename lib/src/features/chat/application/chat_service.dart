@@ -1,4 +1,5 @@
 import 'package:hnk_ask_ai/src/core/enums/message_sender.dart';
+import 'package:hnk_ask_ai/src/core/exceptions/failure.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,7 +46,8 @@ class ChatService {
         content: content,
       );
 
-      await _firebaseChatRepository.saveMessageToFirestore(userId, sentMessage);
+      await _firebaseChatRepository.saveMessageToFirestore(
+          userId: userId, message: sentMessage);
 
       final responsedMessage = MessageModel(
         id: const Uuid().v4(),
@@ -55,9 +57,9 @@ class ChatService {
       );
 
       await _firebaseChatRepository.saveMessageToFirestore(
-          userId, responsedMessage);
+          userId: userId, message: responsedMessage);
     } catch (e) {
-      throw Exception(e.toString());
+      throw Failure(message: e.toString());
     }
   }
 }

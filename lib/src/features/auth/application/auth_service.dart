@@ -9,7 +9,6 @@ class AuthService {
   final InMemoryStoreService<UserModel?> _authState =
       InMemoryStoreService<UserModel?>(null);
   Stream<UserModel?> authStateChanges() => _authState.stream;
-  UserModel? get currentUser => _authState.value;
 
   final FirebaseAuthRepository _firebaseAuthRepository;
   final AuthRepository _authRepository;
@@ -26,37 +25,39 @@ class AuthService {
     _authState.value = user;
   }
 
-  Future<void> getProfileFromFirestore(String userId) async {
+  Future<void> getProfileFromFirestore({required String userId}) async {
     try {
       final user =
-          await _firebaseAuthRepository.getProfileFromFirestore(userId);
+          await _firebaseAuthRepository.getProfileFromFirestore(userId: userId);
       saveProfileInApp(user);
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> saveProfileToFirestore(UserModel user) async {
+  Future<void> saveProfileToFirestore({required UserModel user}) async {
     try {
-      await _firebaseAuthRepository.saveProfileToFirestore(user);
+      await _firebaseAuthRepository.saveProfileToFirestore(user: user);
       saveProfileInApp(user);
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login({required String email, required String password}) async {
     try {
-      final userCredential = await _authRepository.login(email, password);
-      await getProfileFromFirestore(userCredential.user!.uid);
+      final userCredential =
+          await _authRepository.login(email: email, password: password);
+      await getProfileFromFirestore(userId: userCredential.user!.uid);
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> signUp(String email, String password) async {
+  Future<void> signUp({required String email, required String password}) async {
     try {
-      final userCredential = await _authRepository.signUp(email, password);
+      final userCredential =
+          await _authRepository.signUp(email: email, password: password);
       final user = UserModel(
         id: userCredential.user!.uid,
         imageUrl: '',
@@ -66,7 +67,7 @@ class AuthService {
         createdAt: DateTime.now(),
         authBy: 'Email',
       );
-      await saveProfileToFirestore(user);
+      await saveProfileToFirestore(user: user);
     } catch (e) {
       throw Exception(e);
     }
@@ -84,7 +85,7 @@ class AuthService {
         createdAt: DateTime.now(),
         authBy: 'Google',
       );
-      await saveProfileToFirestore(user);
+      await saveProfileToFirestore(user: user);
     } catch (e) {
       throw Exception(e);
     }
@@ -105,7 +106,7 @@ class AuthService {
         firstName: firstName,
         lastName: lastName,
       );
-      await saveProfileToFirestore(user);
+      await saveProfileToFirestore(user: user);
     } catch (e) {
       throw Exception(e);
     }

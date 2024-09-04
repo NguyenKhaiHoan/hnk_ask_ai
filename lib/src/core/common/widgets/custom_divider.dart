@@ -11,7 +11,6 @@ class CustomDivider extends StatelessWidget {
       Expanded(
           child: Divider(
         color: AppColors.tuatara,
-        height: 1,
       )),
       gapW24,
       Text(" OR "),
@@ -19,7 +18,6 @@ class CustomDivider extends StatelessWidget {
       Expanded(
           child: Divider(
         color: AppColors.tuatara,
-        height: 1,
       )),
     ]);
   }

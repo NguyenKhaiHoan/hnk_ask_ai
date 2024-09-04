@@ -4,10 +4,10 @@ import 'package:hnk_ask_ai/src/core/constants/constant.dart';
 import 'package:hnk_ask_ai/src/core/enums/message_sender.dart';
 import 'package:hnk_ask_ai/src/core/extensions/scroll_controller_extension.dart';
 import 'package:hnk_ask_ai/src/features/chat/domain/message_model.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/chat/widgets/chat_message_item.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_message_item.dart';
 import 'dart:math' as math;
 
-import '../../../../../../gen/assets.gen.dart';
+import '../../../../../../../gen/assets.gen.dart';
 
 class ChatMessage extends StatefulWidget {
   const ChatMessage({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/constant.dart';
+import '../../../../../../core/constants/constant.dart';
 
 class PromptExamples extends StatelessWidget {
   const PromptExamples({super.key});

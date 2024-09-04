@@ -2,6 +2,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../core/enums/message_sender.dart';
+import '../../domain/message_model.dart';
 
 part 'message_dto.freezed.dart';
 part 'message_dto.g.dart';
@@ -16,6 +17,15 @@ class MessageDto with _$MessageDto {
     required String content,
   }) = _MessageDto;
 
-  factory MessageDto.fromJson(Map<String, dynamic> json) =>
+  factory MessageDto.fromJson(Map<String, Object?> json) =>
       _$MessageDtoFromJson(json);
+}
+
+extension MessageDtoMapper on MessageDto {
+  MessageModel dtoMapperToModel(MessageDto dto) => MessageModel(
+        id: dto.id,
+        createdAt: DateTime.fromMillisecondsSinceEpoch(dto.createdAt),
+        sender: dto.sender,
+        content: dto.content,
+      );
 }

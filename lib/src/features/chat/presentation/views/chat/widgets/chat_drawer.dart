@@ -6,7 +6,7 @@ import 'package:hnk_ask_ai/src/core/common/widgets/svg_icon.dart';
 import 'package:hnk_ask_ai/src/core/constants/constant.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 
-import '../../../../../../gen/assets.gen.dart';
+import '../../../../../../../gen/assets.gen.dart';
 
 class ChatDrawer extends StatefulWidget {
   const ChatDrawer({super.key});
@@ -59,15 +59,12 @@ class _ChatDrawerState extends State<ChatDrawer> {
               height: 38,
               child: CustomTextFormField(
                   textController: _searchTextController,
-                  // prefixIcon: Padding(
-                  //   padding: const EdgeInsets.only(top: 8),
-                  //   child: SvgIcon(
-                  //     iconPath: Assets.images.search.path,
-                  //     iconSize: 20,
-                  //     colorFilter: const ColorFilter.mode(
-                  //         AppColors.shipGray, BlendMode.srcIn),
-                  //   ),
-                  // ),
+                  prefixIcon: SvgIcon(
+                    iconPath: Assets.images.search.path,
+                    iconSize: 20,
+                    colorFilter: const ColorFilter.mode(
+                        AppColors.shipGray, BlendMode.srcIn),
+                  ),
                   focusNode: _focusNode,
                   onChanged: (value) {},
                   hintText: 'Search'.hardcoded),
@@ -109,7 +106,7 @@ class _ChatDrawerState extends State<ChatDrawer> {
               ),
               gapH12,
               const Divider(
-                height: 1,
+                color: AppColors.tuatara,
               ),
             ],
           ),
@@ -139,12 +136,12 @@ class _ChatDrawerState extends State<ChatDrawer> {
                     iconPath: Assets.images.arrow.path,
                     colorFilter: const ColorFilter.mode(
                         AppColors.shipGray, BlendMode.srcIn),
-                    onPressed: () => context.goNamed('home'),
+                    onPressed: () => context.goNamed('photo'),
                   ),
                 ),
                 gapH12,
                 const Divider(
-                  height: 1,
+                  color: AppColors.tuatara,
                 ),
                 gapH12,
                 ListTile(

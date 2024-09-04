@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hnk_ask_ai/src/core/exceptions/failure.dart';
 
 import 'auth_repository.dart';
 
@@ -8,7 +9,8 @@ class AuthRepositoryImpl implements AuthRepository {
   final _googleSignIn = GoogleSignIn();
 
   @override
-  Future<UserCredential> login(String email, String password) async {
+  Future<UserCredential> login(
+      {required String email, required String password}) async {
     try {
       await _firebaseAuth.currentUser?.reload();
       return await _firebaseAuth.signInWithEmailAndPassword(
@@ -21,7 +23,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserCredential> signUp(String email, String password) async {
+  Future<UserCredential> signUp(
+      {required String email, required String password}) async {
     try {
       await _firebaseAuth.currentUser?.reload();
       return await _firebaseAuth.createUserWithEmailAndPassword(
@@ -46,7 +49,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       return await _firebaseAuth.signInWithCredential(credential);
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 

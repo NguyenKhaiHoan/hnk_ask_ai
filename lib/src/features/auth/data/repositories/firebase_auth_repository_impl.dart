@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hnk_ask_ai/src/core/extensions/mappers/user_mapper_extension.dart';
 import 'package:hnk_ask_ai/src/features/auth/data/dtos/user_dto.dart';
 import 'package:hnk_ask_ai/src/features/auth/domain/user_model.dart';
 
+import '../../../../core/exceptions/failure.dart';
 import 'firebase_auth_repository.dart';
 
 class FirebaseAuthRepositoryImpl implements FirebaseAuthRepository {
   final _firestore = FirebaseFirestore.instance;
 
   @override
-  Future<UserModel> getProfileFromFirestore(String userId) async {
+  Future<UserModel> getProfileFromFirestore({required String userId}) async {
     try {
       DocumentSnapshot doc =
           await _firestore.collection('Users').doc(userId).get();
@@ -25,7 +25,7 @@ class FirebaseAuthRepositoryImpl implements FirebaseAuthRepository {
   }
 
   @override
-  Future<void> saveProfileToFirestore(UserModel user) async {
+  Future<void> saveProfileToFirestore({required UserModel user}) async {
     final userDto = user.modelMapperToDto(user);
     try {
       await _firestore
@@ -33,7 +33,7 @@ class FirebaseAuthRepositoryImpl implements FirebaseAuthRepository {
           .doc(userDto.id)
           .set(userDto.toJson());
     } catch (e) {
-      throw Exception(e.toString());
+      throw Failure(message: e.toString());
     }
   }
 }

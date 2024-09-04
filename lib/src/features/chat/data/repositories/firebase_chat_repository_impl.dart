@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:hnk_ask_ai/src/core/extensions/mappers/message_mapper_extention.dart';
+import 'package:hnk_ask_ai/src/core/exceptions/failure.dart';
 import 'package:hnk_ask_ai/src/features/chat/data/repositories/firebase_chat_repository.dart';
 import 'package:hnk_ask_ai/src/features/chat/domain/message_model.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,13 +22,13 @@ class FirebaseChatRepositoryImpl implements FirebaseChatRepository {
       String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {
-      throw Exception(e.toString());
+      throw Failure(message: e.toString());
     }
   }
 
   @override
   Future<void> saveMessageToFirestore(
-      String userId, MessageModel message) async {
+      {required String userId, required MessageModel message}) async {
     final messageDto = message.modelMapperToDto(message);
     try {
       await _firestore
@@ -38,7 +38,7 @@ class FirebaseChatRepositoryImpl implements FirebaseChatRepository {
           .doc(messageDto.id)
           .set(messageDto.toJson());
     } catch (e) {
-      throw Exception(e.toString());
+      throw Failure(message: e.toString());
     }
   }
 }

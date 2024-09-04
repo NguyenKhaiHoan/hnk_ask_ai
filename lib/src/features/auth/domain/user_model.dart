@@ -1,3 +1,5 @@
+import '../data/dtos/user_dto.dart';
+
 class UserModel {
   final String id;
   final String? imageUrl;
@@ -35,4 +37,16 @@ class UserModel {
       authBy: authBy ?? this.authBy,
     );
   }
+}
+
+extension UserModelMapper on UserModel {
+  UserDto modelMapperToDto(UserModel model) => UserDto(
+        id: model.id,
+        createdAt: model.createdAt.millisecondsSinceEpoch,
+        imageUrl: model.imageUrl,
+        email: model.email,
+        firstName: model.firstName,
+        lastName: model.lastName,
+        authBy: model.authBy,
+      );
 }

@@ -93,15 +93,12 @@ class _FieldChatState extends State<FieldChat> {
         focusNode: _focusNode,
         onChanged: (value) => setState(() {}),
         hintText: 'Message'.hardcoded,
-        // suffixIcon: Padding(
-        //   padding: const EdgeInsets.only(top: 5),
-        //   child: SvgIcon(
-        //     iconPath: Assets.images.microphone.path,
-        //     iconSize: 20,
-        //     colorFilter:
-        //         const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
-        //   ),
-        // ),
+        suffixIcon: SvgIcon(
+          iconPath: Assets.images.microphone.path,
+          iconSize: 20,
+          colorFilter:
+              const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
+        ),
       ),
     );
   }

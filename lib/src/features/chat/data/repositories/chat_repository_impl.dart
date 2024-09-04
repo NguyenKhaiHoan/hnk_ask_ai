@@ -1,4 +1,5 @@
 import 'package:hnk_ask_ai/src/core/enums/message_sender.dart';
+import 'package:hnk_ask_ai/src/core/exceptions/failure.dart';
 import 'package:hnk_ask_ai/src/core/extensions/xfile_extention.dart';
 import 'package:hnk_ask_ai/src/features/chat/data/repositories/chat_repository.dart';
 import 'package:hnk_ask_ai/src/features/chat/domain/message_model.dart';
@@ -32,19 +33,23 @@ class ChatRepositoryImpl implements ChatRepository {
     required GenerativeModel geminiModel,
     required String content,
   }) async {
-    if (image == null) {
-      return await geminiModel.generateContent([Content.text(content)]);
-    } else {
-      final imageBytes = await image.readAsBytes();
-      final prompt = TextPart(content);
-      final mimeType = image.getTypeImage();
-      final imagePart = DataPart(mimeType, imageBytes);
-      return await geminiModel.generateContent([
-        Content.multi([
-          prompt,
-          imagePart,
-        ])
-      ]);
+    try {
+      if (image == null) {
+        return await geminiModel.generateContent([Content.text(content)]);
+      } else {
+        final imageBytes = await image.readAsBytes();
+        final prompt = TextPart(content);
+        final mimeType = image.getTypeImage();
+        final imagePart = DataPart(mimeType, imageBytes);
+        return await geminiModel.generateContent([
+          Content.multi([
+            prompt,
+            imagePart,
+          ])
+        ]);
+      }
+    } catch (e) {
+      throw Failure(message: e.toString());
     }
   }
 }

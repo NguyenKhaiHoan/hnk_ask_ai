@@ -1,4 +1,5 @@
 import '../../../core/enums/message_sender.dart';
+import '../data/dtos/message_dto.dart';
 
 class MessageModel {
   final String id;
@@ -29,4 +30,13 @@ class MessageModel {
       content: content ?? this.content,
     );
   }
+}
+
+extension MessageModelMapper on MessageModel {
+  MessageDto modelMapperToDto(MessageModel model) => MessageDto(
+        id: model.id,
+        createdAt: model.createdAt.millisecondsSinceEpoch,
+        sender: model.sender,
+        content: model.content,
+      );
 }

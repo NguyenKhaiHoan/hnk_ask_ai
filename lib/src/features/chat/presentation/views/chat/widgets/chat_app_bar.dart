@@ -20,12 +20,12 @@ class _ChatAppBarState extends State<ChatAppBar> {
   void initState() {
     aiModels = [
       AiModel(
-          type: AiType.ai35,
-          name: 'AI-3.5'.hardcoded,
+          type: AiType.gemini15Flash,
+          name: 'AI-1.5 Flash'.hardcoded,
           iconPath: Assets.images.gpt35.path),
       AiModel(
-          type: AiType.ai4,
-          name: 'AI-4'.hardcoded,
+          type: AiType.gemini15Pro,
+          name: 'AI-1.5 Pro'.hardcoded,
           iconPath: Assets.images.gpt4.path),
     ];
     currentModel = aiModels[0];

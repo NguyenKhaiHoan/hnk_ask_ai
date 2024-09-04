@@ -5,7 +5,5 @@ class RoutesName {
   static const chat = 'chat';
   static const setting = 'setting';
   static const enterInfomation = 'enterInfomation';
-  static const main = 'main';
-  static const home = 'home';
-  static const favorite = 'favorite';
+  static const photo = 'photo';
 }

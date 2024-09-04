@@ -7,14 +7,14 @@ import 'package:hnk_ask_ai/src/core/enums/ai_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 import 'package:hnk_ask_ai/src/core/utils/system_util.dart';
 import 'package:hnk_ask_ai/src/features/chat/domain/ai_model.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/chat/widgets/chat_drawer.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/chat/widgets/chat_message.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/chat/widgets/prompt_examples.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_drawer.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_message.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/prompt_examples.dart';
 
-import '../../../../../gen/assets.gen.dart';
-import '../../../../../gen/fonts.gen.dart';
-import '../../../../core/common/widgets/svg_icon.dart';
-import '../../../../core/constants/constant.dart';
+import '../../../../../../gen/assets.gen.dart';
+import '../../../../../../gen/fonts.gen.dart';
+import '../../../../../core/common/widgets/svg_icon.dart';
+import '../../../../../core/constants/constant.dart';
 
 part 'widgets/field_chat.dart';
 part 'widgets/chat_app_bar.dart';

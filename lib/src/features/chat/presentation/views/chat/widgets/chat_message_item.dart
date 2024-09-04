@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/markdown_viewer.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/svg_icon.dart';
 
-import '../../../../../../gen/assets.gen.dart';
-import '../../../../../core/constants/constant.dart';
-import '../../../../../core/enums/message_sender.dart';
-import '../../../domain/message_model.dart';
+import '../../../../../../../gen/assets.gen.dart';
+import '../../../../../../core/constants/constant.dart';
+import '../../../../../../core/enums/message_sender.dart';
+import '../../../../domain/message_model.dart';
 
 class ChatMessageItem extends StatelessWidget {
   final MessageModel message;
