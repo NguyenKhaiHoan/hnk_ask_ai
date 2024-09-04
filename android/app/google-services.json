@@ -12,7 +12,12 @@
           "package_name": "com.hnk.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1025600239668-lm02v8lnmnfshhbsr4k8gefkd4pvenlq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD-ESPAu4ne5GO9sStPZcW3I_6QvJ197_g"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025600239668-lm02v8lnmnfshhbsr4k8gefkd4pvenlq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1025600239668-i6sjc9e8l46m7dp70dfj71595j97p5jh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hnkAskAi"
+              }
+            }
+          ]
         }
       }
     }

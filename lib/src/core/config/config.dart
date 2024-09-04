@@ -1,4 +1,2 @@
-import 'package:flutter/material.dart';
-
-part 'injection.dart';
-part 'keyboard.dart';
+export 'keyboard.dart';
+export 'injection.dart';

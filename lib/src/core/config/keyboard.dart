@@ -1,4 +1,4 @@
-part of 'config.dart';
+import 'package:flutter/material.dart';
 
 class DismissKeyboard extends StatelessWidget {
   final Widget child;

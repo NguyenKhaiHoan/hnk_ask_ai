@@ -85,7 +85,11 @@ class AuthService {
         createdAt: DateTime.now(),
         authBy: 'Google',
       );
-      await saveProfileToFirestore(user: user);
+      try {
+        await getProfileFromFirestore(userId: user.id);
+      } catch (e) {
+        await saveProfileToFirestore(user: user);
+      }
     } catch (e) {
       throw Exception(e);
     }
@@ -100,7 +104,8 @@ class AuthService {
     }
   }
 
-  Future<void> enterInformation(String firstName, String lastName) async {
+  Future<void> enterInformation(
+      {required String firstName, required String lastName}) async {
     try {
       final user = _authState.value!.copyWith(
         firstName: firstName,

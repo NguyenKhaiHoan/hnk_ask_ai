@@ -89,17 +89,17 @@ class _FieldChatState extends State<FieldChat> {
   Widget _buildTextField() {
     return Expanded(
       child: CustomTextFormField(
-        textController: _chatTextController,
-        focusNode: _focusNode,
-        onChanged: (value) => setState(() {}),
-        hintText: 'Message'.hardcoded,
-        suffixIcon: SvgIcon(
-          iconPath: Assets.images.microphone.path,
-          iconSize: 20,
-          colorFilter:
-              const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
-        ),
-      ),
+          textController: _chatTextController,
+          focusNode: _focusNode,
+          onChanged: (value) => setState(() {}),
+          hintText: 'Message'.hardcoded,
+          // suffixIcon: SvgIcon(
+          //   iconPath: Assets.images.microphone.path,
+          //   iconSize: 20,
+          //   colorFilter:
+          //       const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
+          // ),
+          onSubmited: (value) {}),
     );
   }
 
@@ -115,11 +115,23 @@ class _FieldChatState extends State<FieldChat> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(3),
-              child: SvgIcon(
-                iconPath: Assets.images.arrowUp.path,
-                iconSize: 20,
-                colorFilter:
-                    const ColorFilter.mode(AppColors.light, BlendMode.srcIn),
+              child: Consumer(
+                builder: (context, ref, child) {
+                  return SvgIcon(
+                    iconPath: Assets.images.arrowUp.path,
+                    iconSize: 20,
+                    colorFilter: const ColorFilter.mode(
+                        AppColors.light, BlendMode.srcIn),
+                    onPressed: () async => await ref
+                        .read(chatServiceProvider)
+                        .sendMessage(
+                            geminiModel: GenerativeModel(
+                                model: 'gemini-1.5-flash',
+                                apiKey:
+                                    'AIzaSyA5bKVQieKQHUbMCR2dGk1TqKjpswGX0mk'),
+                            content: _chatTextController.text.trim()),
+                  );
+                },
               ),
             ),
           );

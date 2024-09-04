@@ -9,4 +9,6 @@ abstract class FirebaseChatRepository {
 
   Future<void> saveMessageToFirestore(
       {required String userId, required MessageModel message});
+
+  Stream<List<MessageModel>?> getMessages({required String userId});
 }

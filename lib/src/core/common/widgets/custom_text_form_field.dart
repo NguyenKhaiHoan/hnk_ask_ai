@@ -6,6 +6,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController textController;
   final FocusNode focusNode;
   final Function(String value) onChanged;
+  final Function(String value) onSubmited;
   final String hintText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -17,7 +18,8 @@ class CustomTextFormField extends StatelessWidget {
       required this.onChanged,
       required this.hintText,
       this.suffixIcon,
-      this.prefixIcon});
+      this.prefixIcon,
+      required this.onSubmited});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: textController,
       focusNode: focusNode,
       onChanged: (value) => onChanged,
+      onSubmitted: (value) => onSubmited,
       decoration: InputDecoration(
         suffix: suffixIcon,
         prefix: prefixIcon,

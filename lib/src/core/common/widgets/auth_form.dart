@@ -46,6 +46,7 @@ class AuthForm extends StatelessWidget {
             focusNode: focusNode1,
             onChanged: (value) {},
             hintText: hintText1 ?? 'Email address'.hardcoded,
+            onSubmited: (value) {},
           ),
           gapH24,
           CustomTextFormField(
@@ -53,6 +54,7 @@ class AuthForm extends StatelessWidget {
             focusNode: focusNode2,
             onChanged: (value) {},
             hintText: hintText2 ?? 'Password'.hardcoded,
+            onSubmited: (value) {},
           ),
           gapH24,
           CustomButton(

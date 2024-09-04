@@ -5,8 +5,11 @@ import 'package:hnk_ask_ai/src/core/exceptions/failure.dart';
 import 'auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth;
   final _googleSignIn = GoogleSignIn();
+
+  AuthRepositoryImpl({required FirebaseAuth firebaseAuth})
+      : _firebaseAuth = firebaseAuth;
 
   @override
   Future<UserCredential> login(

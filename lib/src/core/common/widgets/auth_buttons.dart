@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/gen/assets.gen.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_button.dart';
+import 'package:hnk_ask_ai/src/core/config/config.dart';
 import 'package:hnk_ask_ai/src/core/constants/constant.dart';
 import 'package:hnk_ask_ai/src/core/enums/button_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
@@ -79,14 +81,19 @@ class GoogleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      text: 'Continue with Google'.hardcoded,
-      textColor: textColor ?? AppColors.light,
-      iconPath: Assets.images.google.path,
-      backgroundColor: backgroundColor ?? AppColors.grey,
-      iconSize: 16,
-      notNeedColorFilter: true,
-      buttonType: type ?? ButtonType.elevated,
+    return Consumer(
+      builder: (context, ref, child) {
+        return CustomButton(
+          text: 'Continue with Google'.hardcoded,
+          textColor: textColor ?? AppColors.light,
+          iconPath: Assets.images.google.path,
+          backgroundColor: backgroundColor ?? AppColors.grey,
+          iconSize: 16,
+          notNeedColorFilter: true,
+          buttonType: type ?? ButtonType.elevated,
+          onPressed: () => ref.read(authServiceProvider).signInWithGoogle(),
+        );
+      },
     );
   }
 }

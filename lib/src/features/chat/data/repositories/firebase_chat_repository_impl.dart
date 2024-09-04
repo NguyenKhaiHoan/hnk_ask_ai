@@ -7,6 +7,8 @@ import 'package:hnk_ask_ai/src/features/chat/data/repositories/firebase_chat_rep
 import 'package:hnk_ask_ai/src/features/chat/domain/message_model.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../dtos/message_dto.dart';
+
 class FirebaseChatRepositoryImpl implements FirebaseChatRepository {
   final _firestore = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instance;
@@ -40,5 +42,23 @@ class FirebaseChatRepositoryImpl implements FirebaseChatRepository {
     } catch (e) {
       throw Failure(message: e.toString());
     }
+  }
+
+  @override
+  Stream<List<MessageModel>?> getMessages({required String userId}) {
+    return _firestore
+        .collection('Chats')
+        .doc(userId)
+        .collection('Messages')
+        .orderBy('created_at', descending: false)
+        .snapshots()
+        .map((snapshot) {
+      final messagesDto = snapshot.docs.map(
+        (messageData) => MessageDto.fromJson(
+          messageData.data(),
+        ),
+      );
+      return messagesDto.map((dto) => dto.dtoMapperToModel(dto)).toList();
+    });
   }
 }

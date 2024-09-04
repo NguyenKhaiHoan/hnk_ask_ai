@@ -18,6 +18,16 @@ class UserModel {
       required this.createdAt,
       required this.authBy});
 
+  static UserModel get empty => UserModel(
+        id: '0',
+        imageUrl: 'imageUrl',
+        email: 'email',
+        firstName: 'firstName',
+        lastName: 'lastName',
+        createdAt: DateTime.now(),
+        authBy: 'authBy',
+      );
+
   UserModel copyWith({
     String? id,
     String? imageUrl,

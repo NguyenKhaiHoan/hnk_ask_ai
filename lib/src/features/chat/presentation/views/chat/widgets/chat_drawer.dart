@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_text_form_field.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/svg_icon.dart';
 import 'package:hnk_ask_ai/src/core/constants/constant.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
+import 'package:hnk_ask_ai/src/features/auth/presentation/controllers/auth_controller.dart';
 
 import '../../../../../../../gen/assets.gen.dart';
+import '../../../../../auth/domain/user_model.dart';
 
 class ChatDrawer extends StatefulWidget {
   const ChatDrawer({super.key});
@@ -58,16 +61,18 @@ class _ChatDrawerState extends State<ChatDrawer> {
             child: SizedBox(
               height: 38,
               child: CustomTextFormField(
-                  textController: _searchTextController,
-                  prefixIcon: SvgIcon(
-                    iconPath: Assets.images.search.path,
-                    iconSize: 20,
-                    colorFilter: const ColorFilter.mode(
-                        AppColors.shipGray, BlendMode.srcIn),
-                  ),
-                  focusNode: _focusNode,
-                  onChanged: (value) {},
-                  hintText: 'Search'.hardcoded),
+                textController: _searchTextController,
+                // prefixIcon: SvgIcon(
+                //   iconPath: Assets.images.search.path,
+                //   iconSize: 20,
+                //   colorFilter: const ColorFilter.mode(
+                //       AppColors.shipGray, BlendMode.srcIn),
+                // ),
+                focusNode: _focusNode,
+                onChanged: (value) {},
+                hintText: 'Search'.hardcoded,
+                onSubmited: (value) {},
+              ),
             ),
           ),
         ),
@@ -154,11 +159,33 @@ class _ChatDrawerState extends State<ChatDrawer> {
                       iconSize: 42,
                     ),
                   ),
-                  title: Text(
-                    'Nguyễn Khải Hoàn'.hardcoded,
-                    style: AppStyles.paragraph1Bold(),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                  title: Consumer(
+                    builder: (context, ref, child) {
+                      final userAsync = ref.watch(authStateChangesProvider);
+                      return userAsync.when(
+                          data: (data) {
+                            final user = data ?? UserModel.empty;
+                            return Text(
+                              '${user.lastName} ${user.firstName}',
+                              style: AppStyles.paragraph1Bold(),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            );
+                          },
+                          error: (error, stackTrace) {
+                            return Text(
+                              'Unknown'.hardcoded,
+                              style: AppStyles.paragraph1Bold(),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            );
+                          },
+                          loading: () => const Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.dark,
+                                ),
+                              ));
+                    },
                   ),
                   trailing: SvgIcon(
                     iconPath: Assets.images.ellipsis.path,

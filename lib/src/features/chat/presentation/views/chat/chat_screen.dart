@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hnk_ask_ai/env/env.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_text_form_field.dart';
+import 'package:hnk_ask_ai/src/core/config/config.dart';
 import 'package:hnk_ask_ai/src/core/enums/ai_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 import 'package:hnk_ask_ai/src/core/utils/system_util.dart';
@@ -10,6 +13,7 @@ import 'package:hnk_ask_ai/src/features/chat/domain/ai_model.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_drawer.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_message.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/prompt_examples.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 
 import '../../../../../../gen/assets.gen.dart';
 import '../../../../../../gen/fonts.gen.dart';

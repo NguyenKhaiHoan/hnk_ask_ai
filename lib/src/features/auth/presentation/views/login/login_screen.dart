@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/src/core/common/screens/authentication_screen.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
+
+import '../../../../../core/config/config.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,16 +39,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AuthScreen(
-        title: 'Welcome back'.hardcoded,
-        text1Controller: _emailTextController,
-        focusNode1: _emailFocusNode,
-        text2Controller: _passwordTextController,
-        focusNode2: _passwordFocusNode,
-        buttonText: 'Continue'.hardcoded,
-        onSubmitPressed: () => context.goNamed('chat'),
-        promptText: 'Don\'t have an account?'.hardcoded,
-        actionText: 'Sign up'.hardcoded,
-        onActionTextPressed: () => context.goNamed('signUp'));
+    return Consumer(
+      builder: (context, ref, child) {
+        return AuthScreen(
+            title: 'Welcome back'.hardcoded,
+            text1Controller: _emailTextController,
+            focusNode1: _emailFocusNode,
+            text2Controller: _passwordTextController,
+            focusNode2: _passwordFocusNode,
+            buttonText: 'Continue'.hardcoded,
+            onSubmitPressed: () => login(context, ref),
+            promptText: 'Don\'t have an account?'.hardcoded,
+            actionText: 'Sign up'.hardcoded,
+            onActionTextPressed: () => context.goNamed('signUp'));
+      },
+    );
+  }
+
+  Future<void> login(BuildContext context, WidgetRef ref) async {
+    try {
+      await ref.read(authServiceProvider).login(
+            email: _emailTextController.text.trim(),
+            password: _passwordTextController.text.trim(),
+          );
+      if (!context.mounted) return;
+      context.goNamed('chat');
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
