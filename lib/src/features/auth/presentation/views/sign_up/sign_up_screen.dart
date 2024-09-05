@@ -5,6 +5,8 @@ import 'package:hnk_ask_ai/src/core/common/screens/authentication_screen.dart';
 import 'package:hnk_ask_ai/src/core/config/config.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 
+import '../../../../../core/exceptions/failure.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -67,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (!context.mounted) return;
       context.goNamed('enterInfomation');
     } catch (e) {
-      print(e.toString());
+      throw (Failure(message: e.toString()));
     }
   }
 }

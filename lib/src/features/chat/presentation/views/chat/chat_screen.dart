@@ -1,27 +1,43 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hnk_ask_ai/src/core/common/widgets/markdown_viewer.dart';
+import 'package:hnk_ask_ai/src/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_controller.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hnk_ask_ai/env/env.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_text_form_field.dart';
 import 'package:hnk_ask_ai/src/core/config/config.dart';
-import 'package:hnk_ask_ai/src/core/enums/ai_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 import 'package:hnk_ask_ai/src/core/utils/system_util.dart';
-import 'package:hnk_ask_ai/src/features/chat/domain/ai_model.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_drawer.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_message.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/prompt_examples.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_drawer_controller.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_field_controller.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_screen_controller.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/states/chat_field_state.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/states/chat_screen_state.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 import '../../../../../../gen/assets.gen.dart';
-import '../../../../../../gen/fonts.gen.dart';
+import '../../../../../core/common/widgets/logo_and_slogan_text.dart';
 import '../../../../../core/common/widgets/svg_icon.dart';
 import '../../../../../core/constants/constant.dart';
+import '../../../../../core/enums/message_sender.dart';
+import '../../../../auth/domain/user_model.dart';
+import '../../../domain/ai_model.dart';
+import '../../../domain/message_model.dart';
+import '../../states/chat_drawer_state.dart';
 
-part 'widgets/field_chat.dart';
-part 'widgets/chat_app_bar.dart';
+part 'widgets/app_bar/chat_app_bar.dart';
+part 'widgets/app_bar/chat_app_bar_title.dart';
+
+part 'widgets/chat_message/chat_field.dart';
+part 'widgets/chat_message/list_message.dart';
+part 'widgets/chat_message/list_message_item.dart';
+part 'widgets/chat_message/prompt_examples.dart';
+
+part 'widgets/drawer/chat_drawer_bottom.dart';
+part 'widgets/drawer/chat_drawer.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -29,57 +45,11 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemUtil.setSystemUIOverlayStyle();
-    bool isChat = Random().nextBool();
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.light,
-      appBar: ChatAppBar(isChat: isChat),
-      extendBodyBehindAppBar: true,
-      drawer: const ChatDrawer(),
-      body: _buildBody(isChat),
+      appBar: ChatAppBar(),
+      drawer: ChatDrawer(),
+      body: ListMessage(),
     );
-  }
-
-  SafeArea _buildBody(bool isChat) {
-    return SafeArea(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(child: isChat ? const ChatMessage() : _buildLogoAndSlogan()),
-        _buildBottomChat(isChat)
-      ],
-    ));
-  }
-
-  Align _buildLogoAndSlogan() {
-    return Align(
-      alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'A'.hardcoded,
-            style: AppStyles.heading1().copyWith(
-              fontFamily: FontFamily.me,
-              fontSize: 72,
-              height: 1.0,
-            ),
-          ),
-          Text(
-            'Ask Ai Anything'.hardcoded,
-            style: AppStyles.heading2().copyWith(fontFamily: FontFamily.me),
-          ),
-          gapH64,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomChat(bool isChat) {
-    return isChat
-        ? const FieldChat()
-        : const Column(
-            children: [PromptExamples(), gapH16, FieldChat()],
-          );
   }
 }

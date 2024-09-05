@@ -24,6 +24,7 @@ class MessageDto with _$MessageDto {
 extension MessageDtoMapper on MessageDto {
   MessageModel dtoMapperToModel(MessageDto dto) => MessageModel(
         id: dto.id,
+        imageUrl: dto.imageUrl,
         createdAt: DateTime.fromMillisecondsSinceEpoch(dto.createdAt),
         sender: dto.sender,
         content: dto.content,

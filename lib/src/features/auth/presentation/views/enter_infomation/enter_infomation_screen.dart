@@ -5,6 +5,7 @@ import 'package:hnk_ask_ai/src/core/common/screens/authentication_screen.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 
 import '../../../../../core/config/config.dart';
+import '../../../../../core/exceptions/failure.dart';
 
 class EnterInfomationScreen extends StatefulWidget {
   const EnterInfomationScreen({super.key});
@@ -70,7 +71,7 @@ class _EnterInfomationScreenState extends State<EnterInfomationScreen> {
       if (!context.mounted) return;
       context.goNamed('chat');
     } catch (e) {
-      print(e.toString());
+      throw (Failure(message: e.toString()));
     }
   }
 }

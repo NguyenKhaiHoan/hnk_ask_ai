@@ -35,6 +35,7 @@ class MessageModel {
 extension MessageModelMapper on MessageModel {
   MessageDto modelMapperToDto(MessageModel model) => MessageDto(
         id: model.id,
+        imageUrl: model.imageUrl,
         createdAt: model.createdAt.millisecondsSinceEpoch,
         sender: model.sender,
         content: model.content,
