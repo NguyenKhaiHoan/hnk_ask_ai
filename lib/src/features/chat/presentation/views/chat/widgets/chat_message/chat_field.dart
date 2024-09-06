@@ -35,8 +35,8 @@ class _FieldChatState extends ConsumerState<ChatField> {
 
   @override
   Widget build(BuildContext context) {
-    var isHiddenIcons = ref.watch(chatFieldControllerProvider.select(
-        (state) => (state.value ?? ChatFieldState.defaultState).isHiddenIcons));
+    var isHiddenIcons = ref.watch(
+        chatFieldControllerProvider.select((state) => state.isHiddenIcons));
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
       child: Container(
@@ -92,8 +92,8 @@ class _FieldChatState extends ConsumerState<ChatField> {
   }
 
   Widget _buildTextField() {
-    var images = ref.watch(chatFieldControllerProvider.select(
-        (state) => (state.value ?? ChatFieldState.defaultState).images));
+    var images =
+        ref.watch(chatFieldControllerProvider.select((state) => state.images));
     return Expanded(
       child: CustomTextFormField(
         images: images,
@@ -118,14 +118,13 @@ class _FieldChatState extends ConsumerState<ChatField> {
   }
 
   Widget _buildSubmitIcon() {
-    var isTyping = ref.watch(chatFieldControllerProvider.select(
-        (state) => (state.value ?? ChatFieldState.defaultState).isTyping));
+    var isTyping = ref
+        .watch(chatFieldControllerProvider.select((state) => state.isTyping));
     return !isTyping
         ? SvgIcon(iconPath: Assets.images.headphones.path)
         : Consumer(builder: (context, ref, child) {
             var isLoadingResponse = ref.watch(chatFieldControllerProvider
-                .select((state) => (state.value ?? ChatFieldState.defaultState)
-                    .isLoadingResponse));
+                .select((state) => state.isLoadingResponse));
             return Container(
               width: 32,
               height: 32,
@@ -137,9 +136,8 @@ class _FieldChatState extends ConsumerState<ChatField> {
                 padding: const EdgeInsets.all(3),
                 child: Consumer(
                   builder: (context, ref, child) {
-                    var images = ref.watch(chatFieldControllerProvider.select(
-                        (state) => (state.value ?? ChatFieldState.defaultState)
-                            .images));
+                    var images = ref.watch(chatFieldControllerProvider
+                        .select((state) => state.images));
                     return SvgIcon(
                       iconPath: isLoadingResponse
                           ? Assets.images.loading.path

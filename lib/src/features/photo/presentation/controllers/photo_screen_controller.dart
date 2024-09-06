@@ -9,13 +9,12 @@ part 'photo_screen_controller.g.dart';
 @riverpod
 class PhotoScreenController extends _$PhotoScreenController {
   @override
-  FutureOr<PhotoScreenState> build() {
+  PhotoScreenState build() {
     return PhotoScreenState.defaultState;
   }
 
   void setRandomPage() {
     final randomPage = Random().nextInt(5);
-    state = state.whenData(
-        (screenState) => screenState.copyWith(randomPage: randomPage));
+    state = state.copyWith(randomPage: randomPage);
   }
 }

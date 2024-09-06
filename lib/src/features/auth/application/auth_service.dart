@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import '../../../core/common/services/in_memory_store_service.dart';
+import '../../../core/exceptions/failure.dart';
 import '../data/repositories/auth_repository.dart';
 import '../data/repositories/firebase_auth_repository.dart';
 import '../domain/user_model.dart';
@@ -31,7 +32,7 @@ class AuthService {
           await _firebaseAuthRepository.getProfileFromFirestore(userId: userId);
       saveProfileInApp(user);
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 
@@ -40,7 +41,7 @@ class AuthService {
       await _firebaseAuthRepository.saveProfileToFirestore(user: user);
       saveProfileInApp(user);
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 
@@ -50,7 +51,7 @@ class AuthService {
           await _authRepository.login(email: email, password: password);
       await getProfileFromFirestore(userId: userCredential.user!.uid);
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 
@@ -69,7 +70,7 @@ class AuthService {
       );
       await saveProfileToFirestore(user: user);
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 
@@ -91,7 +92,7 @@ class AuthService {
         await saveProfileToFirestore(user: user);
       }
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 
@@ -100,7 +101,7 @@ class AuthService {
       await _authRepository.signOut();
       _authState.value = null;
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 
@@ -113,7 +114,7 @@ class AuthService {
       );
       await saveProfileToFirestore(user: user);
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 }

@@ -13,8 +13,6 @@ import 'package:hnk_ask_ai/src/core/utils/system_util.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_drawer_controller.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_field_controller.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_screen_controller.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/states/chat_field_state.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/states/chat_screen_state.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -26,7 +24,6 @@ import '../../../../../core/enums/message_sender.dart';
 import '../../../../auth/domain/user_model.dart';
 import '../../../domain/ai_model.dart';
 import '../../../domain/message_model.dart';
-import '../../states/chat_drawer_state.dart';
 
 part 'widgets/app_bar/chat_app_bar.dart';
 part 'widgets/app_bar/chat_app_bar_title.dart';

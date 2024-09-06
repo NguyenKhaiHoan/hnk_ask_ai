@@ -10,14 +10,12 @@ part 'chat_field_controller.g.dart';
 @riverpod
 class ChatFieldController extends _$ChatFieldController {
   @override
-  FutureOr<ChatFieldState> build() {
+  ChatFieldState build() {
     return ChatFieldState.defaultState;
   }
 
   void setHiddenIconsWhenFocus(bool hasFocus) {
-    final isHiddenIcons =
-        (state.value ?? ChatFieldState.defaultState).isHiddenIcons;
-    if (hasFocus && isHiddenIcons) {
+    if (hasFocus && state.isHiddenIcons) {
       setHiddenIcons(false);
     } else {
       setHiddenIcons(true);
@@ -25,26 +23,21 @@ class ChatFieldController extends _$ChatFieldController {
   }
 
   void setHiddenIcons(bool value) {
-    state = state
-        .whenData((screenState) => screenState.copyWith(isHiddenIcons: value));
+    state = state.copyWith(isHiddenIcons: value);
   }
 
   void toggleHiddenIcons() {
-    final isHiddenIcons =
-        (state.value ?? ChatFieldState.defaultState).isHiddenIcons;
-    setHiddenIcons(!isHiddenIcons);
+    setHiddenIcons(!state.isHiddenIcons);
   }
 
   void setTypingWhenFocus(bool hasFocus) {
-    final isTyping = (state.value ?? ChatFieldState.defaultState).isTyping;
-    if (hasFocus && !isTyping) {
+    if (hasFocus && !state.isTyping) {
       setTyping(true);
     }
   }
 
   void setTyping(bool value) {
-    state =
-        state.whenData((screenState) => screenState.copyWith(isTyping: value));
+    state = state.copyWith(isTyping: value);
   }
 
   Future<void> addImage() async {
@@ -53,10 +46,9 @@ class ChatFieldController extends _$ChatFieldController {
     if (pickedImage == null) {
       return;
     }
-    final images = (state.value ?? ChatFieldState.defaultState).images;
+    final images = state.images;
     images.add(pickedImage);
-    state =
-        state.whenData((screenState) => screenState.copyWith(images: images));
+    state = state.copyWith(images: images);
   }
 
   void sendMessage({
@@ -65,16 +57,13 @@ class ChatFieldController extends _$ChatFieldController {
     required String content,
   }) async {
     final chatService = ref.read(chatServiceProvider);
-    state = state.whenData((screenState) =>
-        screenState.copyWith(images: [], isLoadingResponse: true));
+    setLoadingResponse(true);
     await chatService.sendMessage(
         geminiModel: geminiModel, content: content, image: image);
-    state = state.whenData(
-        (screenState) => screenState.copyWith(isLoadingResponse: false));
+    setLoadingResponse(false);
   }
 
   void setLoadingResponse(bool value) {
-    state = state.whenData(
-        (screenState) => screenState.copyWith(isLoadingResponse: value));
+    state = state.copyWith(isLoadingResponse: value);
   }
 }

@@ -21,7 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       );
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 
@@ -35,7 +35,7 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       );
     } catch (e) {
-      throw Exception(e);
+      throw Failure(message: e.toString());
     }
   }
 

@@ -14,7 +14,6 @@ import '../../../../../core/common/network_images/network_image.dart';
 import '../../../../../core/common/widgets/svg_icon.dart';
 import '../../../../../core/constants/constant.dart';
 import '../../controllers/photo_screen_controller.dart';
-import '../../controllers/states/photo_screen_state.dart';
 
 part 'widgets/photo_app_bar.dart';
 part 'widgets/photo_body.dart';

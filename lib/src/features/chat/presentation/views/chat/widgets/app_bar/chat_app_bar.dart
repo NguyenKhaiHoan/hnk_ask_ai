@@ -8,8 +8,8 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var isNewChat = ref.watch(chatScreenControllerProvider.select(
-        (state) => (state.value ?? ChatScreenState.defaultState).isNewChat));
+    var isNewChat = ref
+        .watch(chatScreenControllerProvider.select((state) => state.isNewChat));
     return AppBar(
       leading: Container(
         padding: const EdgeInsets.only(left: 20),

@@ -5,9 +5,8 @@ class ChatAppBarTitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var currentAiModel = ref.watch(chatScreenControllerProvider.select(
-        (state) =>
-            (state.value ?? ChatScreenState.defaultState).currentAiModel));
+    var currentAiModel = ref.watch(
+        chatScreenControllerProvider.select((state) => state.currentAiModel));
     return CustomPopup(
       showArrow: false,
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -70,10 +69,8 @@ class ChatAppBarTitle extends ConsumerWidget {
         children: [
           Consumer(
             builder: (context, ref, child) {
-              var currentAiModel = ref.watch(
-                  chatScreenControllerProvider.select((state) =>
-                      (state.value ?? ChatScreenState.defaultState)
-                          .currentAiModel));
+              var currentAiModel = ref.watch(chatScreenControllerProvider
+                  .select((state) => state.currentAiModel));
               return SvgIcon(
                 iconPath: Assets.images.check.path,
                 iconSize: 18,

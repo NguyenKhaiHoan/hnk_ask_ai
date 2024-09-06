@@ -22,7 +22,7 @@ class _ChatDrawerState extends ConsumerState<ChatDrawer> {
   void _handleFocusChange() {
     ref
         .read(chatDrawerControllerProvider.notifier)
-        .setCollapse(_focusNode.hasFocus);
+        .setCollapseWhenFocus(_focusNode.hasFocus);
   }
 
   @override
@@ -34,8 +34,8 @@ class _ChatDrawerState extends ConsumerState<ChatDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    var isCollapse = ref.watch(chatDrawerControllerProvider.select(
-        (state) => (state.value ?? ChatDrawerState.defaultState).isCollapse));
+    var isCollapse = ref.watch(
+        chatDrawerControllerProvider.select((state) => state.isCollapse));
     return AnimatedContainer(
       width: isCollapse ? 1.sw * 0.8 : 1.sw,
       duration: const Duration(milliseconds: 300),

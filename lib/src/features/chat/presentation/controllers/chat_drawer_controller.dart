@@ -7,18 +7,19 @@ part 'chat_drawer_controller.g.dart';
 @riverpod
 class ChatDrawerController extends _$ChatDrawerController {
   @override
-  FutureOr<ChatDrawerState> build() {
+  ChatDrawerState build() {
     return ChatDrawerState.defaultState;
   }
 
-  void setCollapse(bool hasFocus) {
-    final isCollapse = (state.value ?? ChatDrawerState.defaultState).isCollapse;
-    if (hasFocus && isCollapse) {
-      state = state
-          .whenData((screenState) => screenState.copyWith(isCollapse: false));
+  void setCollapseWhenFocus(bool hasFocus) {
+    if (hasFocus && state.isCollapse) {
+      setCollapse(false);
     } else {
-      state = state
-          .whenData((screenState) => screenState.copyWith(isCollapse: true));
+      setCollapse(true);
     }
+  }
+
+  void setCollapse(bool value) {
+    state = state.copyWith(isCollapse: true);
   }
 }

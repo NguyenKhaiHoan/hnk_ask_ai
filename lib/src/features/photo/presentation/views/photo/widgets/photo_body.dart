@@ -11,8 +11,8 @@ class _PhotoBodyState extends ConsumerState<PhotoBody> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var randomPage = ref.watch(photoScreenControllerProvider.select(
-        (state) => (state.value ?? PhotoScreenState.defaultState).randomPage));
+    var randomPage = ref.watch(
+        photoScreenControllerProvider.select((state) => state.randomPage));
     return Padding(
       padding: defaultSmallPadding,
       child: Column(
