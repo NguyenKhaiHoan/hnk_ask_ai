@@ -4,6 +4,6 @@ part 'env.g.dart';
 
 @Envied(path: '.env')
 final class Env {
-  @EnviedField(varName: 'GPT_KEY', obfuscate: true)
+  @EnviedField(varName: 'GEMINI_KEY', obfuscate: true)
   static final String geminiApiKey = _Env.geminiApiKey;
 }

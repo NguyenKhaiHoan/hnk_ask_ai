@@ -1,16 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:hnk_ask_ai/src/core/common/widgets/markdown_viewer.dart';
-import 'package:hnk_ask_ai/src/core/common/widgets/svg_icon.dart';
+part of '../../chat_screen.dart';
 
-import '../../../../../../../gen/assets.gen.dart';
-import '../../../../../../core/constants/constant.dart';
-import '../../../../../../core/enums/message_sender.dart';
-import '../../../../domain/message_model.dart';
-
-class ChatMessageItem extends StatelessWidget {
+class ListMessageItem extends StatelessWidget {
   final MessageModel message;
 
-  const ChatMessageItem({super.key, required this.message});
+  const ListMessageItem({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +36,16 @@ class ChatMessageItem extends StatelessWidget {
                   isAskAi ? 'Ask AI' : 'You',
                   style: AppStyles.heading4(),
                 ),
-                MarkdownViewer(content: message.content)
+                MarkdownViewer(content: message.content),
+                message.imageUrl != null
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: Image.network(
+                          message.imageUrl!,
+                          height: 70,
+                          fit: BoxFit.cover,
+                        ))
+                    : const SizedBox(),
               ],
             ),
           ),

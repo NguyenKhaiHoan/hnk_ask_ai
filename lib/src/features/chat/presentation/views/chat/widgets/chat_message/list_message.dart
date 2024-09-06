@@ -1,22 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:hnk_ask_ai/src/core/common/widgets/svg_icon.dart';
-import 'package:hnk_ask_ai/src/core/constants/constant.dart';
-import 'package:hnk_ask_ai/src/core/enums/message_sender.dart';
-import 'package:hnk_ask_ai/src/core/extensions/scroll_controller_extension.dart';
-import 'package:hnk_ask_ai/src/features/chat/domain/message_model.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_message_item.dart';
-import 'dart:math' as math;
+part of '../../chat_screen.dart';
 
-import '../../../../../../../gen/assets.gen.dart';
-
-class ChatMessage extends StatefulWidget {
-  const ChatMessage({super.key});
+class ListMessage extends StatefulWidget {
+  const ListMessage({super.key});
 
   @override
-  State<ChatMessage> createState() => _ChatMessageState();
+  State<ListMessage> createState() => _ChatMessageState();
 }
 
-class _ChatMessageState extends State<ChatMessage> {
+class _ChatMessageState extends State<ListMessage> {
   late ScrollController _scrollController;
   late List<MessageModel> messages;
   bool _isAtBottom = false;
@@ -129,7 +120,7 @@ class _ChatMessageState extends State<ChatMessage> {
           shrinkWrap: true,
           padding: defaultSmallPadding,
           itemBuilder: (context, index) {
-            return ChatMessageItem(message: messages[index]);
+            return ListMessageItem(message: messages[index]);
           },
           separatorBuilder: (context, index) => gapH26,
           itemCount: messages.length,

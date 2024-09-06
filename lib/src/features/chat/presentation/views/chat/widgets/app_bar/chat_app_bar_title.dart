@@ -1,18 +1,15 @@
-part of '../chat_screen.dart';
+part of '../../chat_screen.dart';
 
-class ChatAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final bool isChat;
-
-  const ChatAppBar({super.key, required this.isChat});
-
-  @override
-  State<ChatAppBar> createState() => _ChatAppBarState();
+class ChatAppBarTitle extends StatefulWidget {
+  const ChatAppBarTitle({
+    super.key,
+  });
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  State<ChatAppBarTitle> createState() => _ChatAppBarTitleState();
 }
 
-class _ChatAppBarState extends State<ChatAppBar> {
+class _ChatAppBarTitleState extends State<ChatAppBarTitle> {
   late AiModel currentModel;
   late List<AiModel> aiModels;
 
@@ -34,34 +31,6 @@ class _ChatAppBarState extends State<ChatAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      leading: Container(
-        padding: const EdgeInsets.only(left: 20),
-        alignment: Alignment.center,
-        child: Builder(builder: (context) {
-          return SvgIcon(
-            iconPath: Assets.images.menu.path,
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          );
-        }),
-      ),
-      title: _buildAppBarTitle(),
-      centerTitle: true,
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: SvgIcon(
-            iconPath: Assets.images.newMessage.path,
-            colorFilter: ColorFilter.mode(
-                widget.isChat ? AppColors.dark : AppColors.masala,
-                BlendMode.srcIn),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildAppBarTitle() {
     return CustomPopup(
       showArrow: false,
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../../../../core/constants/constant.dart';
+part of '../../chat_screen.dart';
 
 class PromptExamples extends StatelessWidget {
   const PromptExamples({super.key});

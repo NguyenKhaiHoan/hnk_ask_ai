@@ -44,6 +44,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/check.svg
   SvgGenImage get check => const SvgGenImage('assets/images/check.svg');
 
+  /// File path: assets/images/dark-logo-photo.svg
+  SvgGenImage get darkLogoPhoto =>
+      const SvgGenImage('assets/images/dark-logo-photo.svg');
+
   /// File path: assets/images/dark-logo.svg
   SvgGenImage get darkLogo => const SvgGenImage('assets/images/dark-logo.svg');
 
@@ -143,6 +147,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/terms.svg
   SvgGenImage get terms => const SvgGenImage('assets/images/terms.svg');
 
+  /// File path: assets/images/warning-circle-fill.svg
+  SvgGenImage get warningCircleFill =>
+      const SvgGenImage('assets/images/warning-circle-fill.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
         apple,
@@ -154,6 +162,7 @@ class $AssetsImagesGen {
         camera,
         chat,
         check,
+        darkLogoPhoto,
         darkLogo,
         database,
         ellipsis,
@@ -183,7 +192,8 @@ class $AssetsImagesGen {
         submit,
         sun,
         suncription,
-        terms
+        terms,
+        warningCircleFill
       ];
 }
 

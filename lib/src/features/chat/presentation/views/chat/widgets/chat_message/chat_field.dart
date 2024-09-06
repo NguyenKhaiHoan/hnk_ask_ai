@@ -1,4 +1,4 @@
-part of '../chat_screen.dart';
+part of '../../chat_screen.dart';
 
 class FieldChat extends StatefulWidget {
   const FieldChat({super.key});
@@ -41,7 +41,7 @@ class _FieldChatState extends State<FieldChat> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
       child: SizedBox(
-        height: 38,
+        height: 40,
         child: Row(
           children: [
             isIconsHidden ? _buildToggleIcon() : _buildActionIcons(),
@@ -95,10 +95,11 @@ class _FieldChatState extends State<FieldChat> {
         hintText: 'Message'.hardcoded,
         suffixIcon: SvgIcon(
           iconPath: Assets.images.microphone.path,
-          iconSize: 20,
+          iconSize: 15,
           colorFilter:
               const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
         ),
+        onSubmited: (String value) {},
       ),
     );
   }

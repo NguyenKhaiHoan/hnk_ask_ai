@@ -12,8 +12,8 @@ class PhotoDto with _$PhotoDto {
   const factory PhotoDto({
     required String id,
     required String author,
-    double? width,
-    double? height,
+    required double width,
+    required double height,
     required String url,
     @JsonKey(name: "download_url") required String downloadUrl,
   }) = _PhotoDto;
@@ -26,6 +26,8 @@ extension PhotoDtoMapper on PhotoDto {
   PhotoModel dtoMapperToModel(PhotoDto dto) => PhotoModel(
         id: dto.id,
         author: dto.author,
+        width: dto.width,
+        height: dto.height,
         url: dto.url,
         downloadUrl: dto.downloadUrl,
       );

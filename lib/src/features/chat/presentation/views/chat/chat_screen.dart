@@ -1,23 +1,35 @@
+import 'dart:math' as math;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_text_form_field.dart';
 import 'package:hnk_ask_ai/src/core/enums/ai_type.dart';
+import 'package:hnk_ask_ai/src/core/extensions/scroll_controller_extension.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 import 'package:hnk_ask_ai/src/core/utils/system_util.dart';
 import 'package:hnk_ask_ai/src/features/chat/domain/ai_model.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_drawer.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/chat_message.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/views/chat/widgets/prompt_examples.dart';
 
 import '../../../../../../gen/assets.gen.dart';
 import '../../../../../../gen/fonts.gen.dart';
+import '../../../../../core/common/widgets/markdown_viewer.dart';
 import '../../../../../core/common/widgets/svg_icon.dart';
 import '../../../../../core/constants/constant.dart';
+import '../../../../../core/enums/message_sender.dart';
+import '../../../domain/message_model.dart';
 
-part 'widgets/field_chat.dart';
-part 'widgets/chat_app_bar.dart';
+part 'widgets/app_bar/chat_app_bar.dart';
+part 'widgets/app_bar/chat_app_bar_title.dart';
+
+part 'widgets/chat_message/chat_field.dart';
+part 'widgets/chat_message/list_message.dart';
+part 'widgets/chat_message/list_message_item.dart';
+part 'widgets/chat_message/prompt_examples.dart';
+
+part 'widgets/drawer/chat_drawer_bottom.dart';
+part 'widgets/drawer/chat_drawer.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -40,7 +52,7 @@ class ChatScreen extends StatelessWidget {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Expanded(child: isChat ? const ChatMessage() : _buildLogoAndSlogan()),
+        Expanded(child: isChat ? const ListMessage() : _buildLogoAndSlogan()),
         _buildBottomChat(isChat)
       ],
     ));
