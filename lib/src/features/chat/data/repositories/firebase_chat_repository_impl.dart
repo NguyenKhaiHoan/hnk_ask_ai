@@ -22,8 +22,6 @@ class FirebaseChatRepositoryImpl implements FirebaseChatRepository {
       Reference ref = _storage.ref('images').child(messageId);
       TaskSnapshot snapshot = await ref.putFile(File(image.path));
       String downloadUrl = await snapshot.ref.getDownloadURL();
-      print(
-          '-----------------------------------------------------------------------------$downloadUrl');
       return downloadUrl;
     } catch (e) {
       throw Failure(message: e.toString());

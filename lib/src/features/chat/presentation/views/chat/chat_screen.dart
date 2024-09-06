@@ -3,12 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/markdown_viewer.dart';
 import 'package:hnk_ask_ai/src/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_controller.dart';
+import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/list_message_controller.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hnk_ask_ai/env/env.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_text_form_field.dart';
-import 'package:hnk_ask_ai/src/core/config/config.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
 import 'package:hnk_ask_ai/src/core/utils/system_util.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_drawer_controller.dart';
@@ -17,6 +16,7 @@ import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/chat_scree
 import 'package:hnk_ask_ai/src/features/chat/presentation/states/chat_field_state.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/states/chat_screen_state.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../gen/assets.gen.dart';
 import '../../../../../core/common/widgets/logo_and_slogan_text.dart';

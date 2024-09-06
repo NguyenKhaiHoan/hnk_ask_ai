@@ -112,13 +112,7 @@ class _FieldChatState extends ConsumerState<ChatField> {
                 const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
           ),
         ),
-        onSubmited: (value) async => await ref
-            .read(chatServiceProvider)
-            .sendMessage(
-                geminiModel: GenerativeModel(
-                    model: 'gemini-1.5-flash', apiKey: Env.geminiApiKey),
-                content: value,
-                image: images.isNotEmpty ? images.first : null),
+        onSubmited: (value) {},
       ),
     );
   }
@@ -150,25 +144,25 @@ class _FieldChatState extends ConsumerState<ChatField> {
                       iconPath: isLoadingResponse
                           ? Assets.images.loading.path
                           : Assets.images.arrowUp.path,
-                      iconSize: 20,
+                      iconSize: isLoadingResponse ? 10 : 20,
                       colorFilter: const ColorFilter.mode(
                           AppColors.light, BlendMode.srcIn),
-                      onPressed: () => isLoadingResponse
-                          ? {}
-                          : ref
-                              .read(chatFieldControllerProvider.notifier)
-                              .sendMessage(
-                                  geminiModel: GenerativeModel(
-                                      model: 'gemini-1.5-flash',
-                                      apiKey: Env.geminiApiKey),
-                                  content: _chatTextController.text.trim(),
-                                  image:
-                                      images.isNotEmpty ? images.first : null),
+                      onPressed: () =>
+                          isLoadingResponse ? {} : _sendMessage(images),
                     );
                   },
                 ),
               ),
             );
           });
+  }
+
+  void _sendMessage(List<XFile> images) {
+    ref.read(chatFieldControllerProvider.notifier).sendMessage(
+        geminiModel: GenerativeModel(
+            model: 'gemini-1.5-flash', apiKey: Env.geminiApiKey),
+        content: _chatTextController.text.trim(),
+        image: images.isNotEmpty ? images.first : null);
+    _chatTextController.clear();
   }
 }
