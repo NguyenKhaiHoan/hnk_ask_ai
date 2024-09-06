@@ -1,6 +1,6 @@
 part of '../../chat_screen.dart';
 
-class ChatDrawerBottom extends StatelessWidget {
+class ChatDrawerBottom extends GetView<AuthController> {
   const ChatDrawerBottom({
     super.key,
   });
@@ -50,32 +50,34 @@ class ChatDrawerBottom extends StatelessWidget {
                   iconSize: 42,
                 ),
               ),
-              title: Consumer(
-                builder: (context, ref, child) {
-                  final userAsync = ref.watch(authStateChangesProvider);
-                  return userAsync.when(
-                      data: (data) {
-                        final user = data ?? UserModel.empty;
-                        return Text(
-                          '${user.lastName} ${user.firstName}',
-                          style: AppStyles.paragraph1Bold(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        );
-                      },
-                      error: (error, stackTrace) {
-                        return Text(
-                          'Unknown'.hardcoded,
-                          style: AppStyles.paragraph1Bold(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        );
-                      },
-                      loading: () => const Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.dark,
-                            ),
-                          ));
+              title: StreamBuilder(
+                stream: controller.authStateChanges(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.dark,
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text(
+                      'Unknown'.hardcoded,
+                      style: AppStyles.paragraph1Bold(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    );
+                  } else if (snapshot.hasData) {
+                    final user = snapshot.data ?? UserModel.empty;
+                    return Text(
+                      '${user.lastName} ${user.firstName}',
+                      style: AppStyles.paragraph1Bold(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    );
+                  } else {
+                    return const Text('No data available');
+                  }
                 },
               ),
               trailing: SvgIcon(

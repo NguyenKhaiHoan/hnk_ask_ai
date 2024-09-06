@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/gen/assets.gen.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_button.dart';
-import 'package:hnk_ask_ai/src/core/config/config.dart';
 import 'package:hnk_ask_ai/src/core/constants/constant.dart';
 import 'package:hnk_ask_ai/src/core/enums/button_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
+import 'package:hnk_ask_ai/src/features/auth/application/auth_service.dart';
 
 class AuthButtons extends StatelessWidget {
   final bool hasOnlySocialButton;
@@ -76,24 +76,21 @@ class GoogleButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
 
-  const GoogleButton(
-      {super.key, this.textColor, this.type, this.backgroundColor});
+  final authService = Get.find<AuthService>();
+
+  GoogleButton({super.key, this.textColor, this.type, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        return CustomButton(
-          text: 'Continue with Google'.hardcoded,
-          textColor: textColor ?? AppColors.light,
-          iconPath: Assets.images.google.path,
-          backgroundColor: backgroundColor ?? AppColors.grey,
-          iconSize: 16,
-          notNeedColorFilter: true,
-          buttonType: type ?? ButtonType.elevated,
-          onPressed: () => ref.read(authServiceProvider).signInWithGoogle(),
-        );
-      },
+    return CustomButton(
+      text: 'Continue with Google'.hardcoded,
+      textColor: textColor ?? AppColors.light,
+      iconPath: Assets.images.google.path,
+      backgroundColor: backgroundColor ?? AppColors.grey,
+      iconSize: 16,
+      notNeedColorFilter: true,
+      buttonType: type ?? ButtonType.elevated,
+      onPressed: () => authService.signInWithGoogle(),
     );
   }
 }

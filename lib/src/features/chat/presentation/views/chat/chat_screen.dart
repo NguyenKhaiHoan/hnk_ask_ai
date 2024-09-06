@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/markdown_viewer.dart';
 import 'package:hnk_ask_ai/src/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:hnk_ask_ai/src/features/chat/presentation/controllers/list_message_controller.dart';
 import 'package:flutter_popup/flutter_popup.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hnk_ask_ai/env/env.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_text_form_field.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
@@ -42,10 +43,10 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemUtil.setSystemUIOverlayStyle();
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.light,
-      appBar: ChatAppBar(),
-      drawer: ChatDrawer(),
+      appBar: const ChatAppBar(),
+      drawer: const ChatDrawer(),
       body: ListMessage(),
     );
   }

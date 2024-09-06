@@ -1,20 +1,22 @@
 import 'dart:math';
 
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:get/get.dart';
 
-import 'states/photo_screen_state.dart';
+import '../../application/photo_service.dart';
+import '../../domain/photo_model.dart';
+import '../states/photo_screen_state.dart';
 
-part 'photo_screen_controller.g.dart';
+class PhotoScreenController extends GetxController {
+  var state = PhotoScreenState.defaultState.obs;
 
-@riverpod
-class PhotoScreenController extends _$PhotoScreenController {
-  @override
-  PhotoScreenState build() {
-    return PhotoScreenState.defaultState;
-  }
+  final photoService = Get.find<PhotoService>();
 
   void setRandomPage() {
     final randomPage = Random().nextInt(5);
-    state = state.copyWith(randomPage: randomPage);
+    state.value = state.value.copyWith(randomPage: randomPage);
+  }
+
+  Future<List<PhotoModel>> getPhotos({required int page, int limit = 10}) {
+    return photoService.getPhotos(page: page, limit: limit);
   }
 }

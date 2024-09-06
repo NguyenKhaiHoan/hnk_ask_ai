@@ -49,8 +49,7 @@ dependencies:
   go_router: ^14.2.7
 
   # Statement
-  flutter_riverpod: ^2.5.1
-  riverpod_annotation: ^2.3.5
+  get: ^4.6.6
 
   # Other
   connectivity_plus: ^6.0.5
@@ -82,9 +81,6 @@ dev_dependencies:
   freezed: ^2.5.7
   flutter_launcher_icons: ^0.13.1
   envied_generator: ^0.5.4+1
-  riverpod_generator: ^2.4.3
-  custom_lint: ^0.6.5
-  riverpod_lint: ^2.3.13
 
 flutter_icons:
   android: true

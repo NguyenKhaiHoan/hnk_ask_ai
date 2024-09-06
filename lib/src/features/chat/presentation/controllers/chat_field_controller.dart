@@ -1,21 +1,39 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:hnk_ask_ai/src/core/config/config.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../application/chat_service.dart';
 import '../states/chat_field_state.dart';
 
-part 'chat_field_controller.g.dart';
+class ChatFieldController extends GetxController {
+  var state = ChatFieldState.defaultState.obs;
 
-@riverpod
-class ChatFieldController extends _$ChatFieldController {
+  final chatService = Get.find<ChatService>();
+
+  final TextEditingController chatTextController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+
   @override
-  ChatFieldState build() {
-    return ChatFieldState.defaultState;
+  void onInit() {
+    super.onInit();
+    focusNode.addListener(_handleFocusChange);
+  }
+
+  void _handleFocusChange() {
+    setHiddenIcons(focusNode.hasFocus);
+  }
+
+  @override
+  void dispose() {
+    chatTextController.dispose();
+    focusNode.removeListener(_handleFocusChange);
+    focusNode.dispose();
+    super.dispose();
   }
 
   void setHiddenIconsWhenFocus(bool hasFocus) {
-    if (hasFocus && state.isHiddenIcons) {
+    if (hasFocus && state.value.isHiddenIcons) {
       setHiddenIcons(false);
     } else {
       setHiddenIcons(true);
@@ -23,32 +41,31 @@ class ChatFieldController extends _$ChatFieldController {
   }
 
   void setHiddenIcons(bool value) {
-    state = state.copyWith(isHiddenIcons: value);
+    state.value = state.value.copyWith(isHiddenIcons: value);
   }
 
   void toggleHiddenIcons() {
-    setHiddenIcons(!state.isHiddenIcons);
+    setHiddenIcons(!state.value.isHiddenIcons);
   }
 
   void setTypingWhenFocus(bool hasFocus) {
-    if (hasFocus && !state.isTyping) {
+    if (hasFocus && !state.value.isTyping) {
       setTyping(true);
     }
   }
 
   void setTyping(bool value) {
-    state = state.copyWith(isTyping: value);
+    state.value = state.value.copyWith(isTyping: value);
   }
 
   Future<void> addImage() async {
-    final chatService = ref.read(chatServiceProvider);
     final pickedImage = await chatService.pickImage();
     if (pickedImage == null) {
       return;
     }
-    final images = state.images;
+    final images = state.value.images;
     images.add(pickedImage);
-    state = state.copyWith(images: images);
+    state.value = state.value.copyWith(images: images);
   }
 
   void sendMessage({
@@ -56,7 +73,6 @@ class ChatFieldController extends _$ChatFieldController {
     required GenerativeModel geminiModel,
     required String content,
   }) async {
-    final chatService = ref.read(chatServiceProvider);
     setLoadingResponse(true);
     await chatService.sendMessage(
         geminiModel: geminiModel, content: content, image: image);
@@ -64,6 +80,6 @@ class ChatFieldController extends _$ChatFieldController {
   }
 
   void setLoadingResponse(bool value) {
-    state = state.copyWith(isLoadingResponse: value);
+    state.value = state.value.copyWith(isLoadingResponse: value);
   }
 }

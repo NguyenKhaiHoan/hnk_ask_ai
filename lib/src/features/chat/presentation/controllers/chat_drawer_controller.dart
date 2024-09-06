@@ -1,18 +1,33 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../states/chat_drawer_state.dart';
 
-part 'chat_drawer_controller.g.dart';
+class ChatDrawerController extends GetxController {
+  var state = ChatDrawerState.defaultState.obs;
 
-@riverpod
-class ChatDrawerController extends _$ChatDrawerController {
+  TextEditingController searchTextController = TextEditingController();
+  FocusNode focusNode = FocusNode();
+
   @override
-  ChatDrawerState build() {
-    return ChatDrawerState.defaultState;
+  void onInit() {
+    super.onInit();
+    focusNode.addListener(_handleFocusChange);
+  }
+
+  void _handleFocusChange() {
+    setCollapseWhenFocus(focusNode.hasFocus);
+  }
+
+  @override
+  void dispose() {
+    searchTextController.dispose();
+    focusNode.dispose();
+    super.dispose();
   }
 
   void setCollapseWhenFocus(bool hasFocus) {
-    if (hasFocus && state.isCollapse) {
+    if (hasFocus && state.value.isCollapse) {
       setCollapse(false);
     } else {
       setCollapse(true);
@@ -20,6 +35,6 @@ class ChatDrawerController extends _$ChatDrawerController {
   }
 
   void setCollapse(bool value) {
-    state = state.copyWith(isCollapse: true);
+    state.value = state.value.copyWith(isCollapse: true);
   }
 }

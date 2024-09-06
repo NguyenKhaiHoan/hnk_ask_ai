@@ -1,15 +1,15 @@
 part of '../../chat_screen.dart';
 
-class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
+class ChatAppBar extends GetView<ChatScreenController>
+    implements PreferredSizeWidget {
   const ChatAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var isNewChat = ref
-        .watch(chatScreenControllerProvider.select((state) => state.isNewChat));
+  Widget build(BuildContext context) {
+    var isNewChat = controller.state.value.isNewChat;
     return AppBar(
       leading: Container(
         padding: const EdgeInsets.only(left: 20),
@@ -26,11 +26,12 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 20),
-          child: SvgIcon(
-            iconPath: Assets.images.newMessage.path,
-            colorFilter: ColorFilter.mode(
-                isNewChat ? AppColors.dark : AppColors.masala, BlendMode.srcIn),
-          ),
+          child: Obx(() => SvgIcon(
+                iconPath: Assets.images.newMessage.path,
+                colorFilter: ColorFilter.mode(
+                    isNewChat ? AppColors.dark : AppColors.masala,
+                    BlendMode.srcIn),
+              )),
         )
       ],
     );

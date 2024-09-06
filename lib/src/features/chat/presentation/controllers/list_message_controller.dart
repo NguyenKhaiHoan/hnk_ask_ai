@@ -1,13 +1,12 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:get/get.dart';
+import 'package:hnk_ask_ai/src/features/chat/application/chat_service.dart';
 
-import '../../../../core/config/injection.dart';
 import '../../domain/message_model.dart';
 
-part 'list_message_controller.g.dart';
+class ListMessageController extends GetxController {
+  final chatService = Get.find<ChatService>();
 
-@Riverpod(keepAlive: true)
-Stream<List<MessageModel>?> messagesStateChanges(MessagesStateChangesRef ref,
-    {required String userId}) {
-  final chatService = ref.watch(chatServiceProvider);
-  return chatService.getMessages(userId: userId);
+  Stream<List<MessageModel>?> messagesStateChanges({required String userId}) {
+    return chatService.getMessages(userId: userId);
+  }
 }
