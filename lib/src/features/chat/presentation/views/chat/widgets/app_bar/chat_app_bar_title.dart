@@ -5,7 +5,6 @@ class ChatAppBarTitle extends GetView<ChatScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    var currentAiModel = controller.state.value.currentAiModel;
     return CustomPopup(
       showArrow: false,
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -35,20 +34,21 @@ class ChatAppBarTitle extends GetView<ChatScreenController> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Obx(
-            () => Text.rich(
+          Obx(() {
+            var curentAiModel = controller.state.value.currentAiModel;
+            return Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
                       text: 'Ask AI '.hardcoded, style: AppStyles.heading4()),
                   TextSpan(
-                      text: currentAiModel.name.substring(3),
+                      text: curentAiModel.name.substring(3),
                       style: AppStyles.heading4()
                           .copyWith(color: AppColors.shipGray)),
                 ],
               ),
-            ),
-          ),
+            );
+          }),
           SvgIcon(
             iconPath: Assets.images.arrow.path,
             colorFilter:
