@@ -1,13 +1,13 @@
 part of '../../chat_screen.dart';
 
-class ChatField extends ConsumerStatefulWidget {
+class ChatField extends StatefulWidget {
   const ChatField({super.key});
 
   @override
-  ConsumerState<ChatField> createState() => _FieldChatState();
+  State<ChatField> createState() => _FieldChatState();
 }
 
-class _FieldChatState extends ConsumerState<ChatField> {
+class _FieldChatState extends State<ChatField> {
   late TextEditingController _chatTextController;
   late FocusNode _focusNode;
 
@@ -20,9 +20,7 @@ class _FieldChatState extends ConsumerState<ChatField> {
   }
 
   void _handleFocusChange() {
-    ref
-        .read(chatFieldControllerProvider.notifier)
-        .setHiddenIcons(_focusNode.hasFocus);
+    context.read<ChatFieldController>().setHiddenIcons(_focusNode.hasFocus);
   }
 
   @override
@@ -35,30 +33,33 @@ class _FieldChatState extends ConsumerState<ChatField> {
 
   @override
   Widget build(BuildContext context) {
-    var isHiddenIcons = ref.watch(
-        chatFieldControllerProvider.select((state) => state.isHiddenIcons));
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
       child: Container(
         constraints:
             const BoxConstraints(minHeight: 40, maxHeight: 70 + 40 + 12),
-        child: Row(
-          children: [
-            isHiddenIcons ? _buildToggleIcon() : _buildActionIcons(),
-            gapW12,
-            _buildTextField(),
-            gapW12,
-            _buildSubmitIcon(),
-          ],
+        child: BlocBuilder<ChatFieldController, ChatFieldState>(
+          builder: (context, state) {
+            return Row(
+              children: [
+                state.isHiddenIcons
+                    ? _buildToggleIcon(context: context)
+                    : _buildActionIcons(context: context),
+                gapW12,
+                _buildTextField(context: context),
+                gapW12,
+                _buildSubmitIcon(context: context),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildToggleIcon() {
+  Widget _buildToggleIcon({required BuildContext context}) {
     return GestureDetector(
-      onTap: () =>
-          ref.read(chatFieldControllerProvider.notifier).toggleHiddenIcons(),
+      onTap: () => context.read<ChatFieldController>().toggleHiddenIcons(),
       child: Container(
         width: 32,
         height: 32,
@@ -75,15 +76,14 @@ class _FieldChatState extends ConsumerState<ChatField> {
     );
   }
 
-  Widget _buildActionIcons() {
+  Widget _buildActionIcons({required BuildContext context}) {
     return Row(
       children: [
         SvgIcon(iconPath: Assets.images.camera.path),
         gapW12,
         SvgIcon(
           iconPath: Assets.images.image.path,
-          onPressed: () =>
-              ref.read(chatFieldControllerProvider.notifier).addImage(),
+          onPressed: () => context.read<ChatFieldController>().addImage(),
         ),
         gapW12,
         SvgIcon(iconPath: Assets.images.folder.path),
@@ -91,72 +91,66 @@ class _FieldChatState extends ConsumerState<ChatField> {
     );
   }
 
-  Widget _buildTextField() {
-    var images =
-        ref.watch(chatFieldControllerProvider.select((state) => state.images));
-    return Expanded(
-      child: CustomTextFormField(
-        images: images,
-        textController: _chatTextController,
-        focusNode: _focusNode,
-        onChanged: (value) => ref
-            .read(chatFieldControllerProvider.notifier)
-            .setTyping(_chatTextController.text.isNotEmpty),
-        hintText: 'Message'.hardcoded,
-        suffixIcon: Padding(
-          padding: const EdgeInsets.only(left: 5),
-          child: SvgIcon(
-            iconPath: Assets.images.microphone.path,
-            iconSize: 15,
-            colorFilter:
-                const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
+  Widget _buildTextField({required BuildContext context}) {
+    return BlocBuilder<ChatFieldController, ChatFieldState>(
+      builder: (context, state) {
+        return Expanded(
+          child: CustomTextFormField(
+            images: state.images,
+            textController: _chatTextController,
+            focusNode: _focusNode,
+            onChanged: (value) => context
+                .read<ChatFieldController>()
+                .setTyping(_chatTextController.text.isNotEmpty),
+            hintText: 'Message'.hardcoded,
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: SvgIcon(
+                iconPath: Assets.images.microphone.path,
+                iconSize: 15,
+                colorFilter:
+                    const ColorFilter.mode(AppColors.shipGray, BlendMode.srcIn),
+              ),
+            ),
+            onSubmited: (value) {},
           ),
-        ),
-        onSubmited: (value) {},
-      ),
+        );
+      },
     );
   }
 
-  Widget _buildSubmitIcon() {
-    var isTyping = ref
-        .watch(chatFieldControllerProvider.select((state) => state.isTyping));
-    return !isTyping
-        ? SvgIcon(iconPath: Assets.images.headphones.path)
-        : Consumer(builder: (context, ref, child) {
-            var isLoadingResponse = ref.watch(chatFieldControllerProvider
-                .select((state) => state.isLoadingResponse));
-            return Container(
-              width: 32,
-              height: 32,
-              decoration: const BoxDecoration(
-                color: AppColors.dark,
-                shape: BoxShape.circle,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(3),
-                child: Consumer(
-                  builder: (context, ref, child) {
-                    var images = ref.watch(chatFieldControllerProvider
-                        .select((state) => state.images));
-                    return SvgIcon(
-                      iconPath: isLoadingResponse
-                          ? Assets.images.loading.path
-                          : Assets.images.arrowUp.path,
-                      iconSize: isLoadingResponse ? 10 : 20,
-                      colorFilter: const ColorFilter.mode(
-                          AppColors.light, BlendMode.srcIn),
-                      onPressed: () =>
-                          isLoadingResponse ? {} : _sendMessage(images),
-                    );
-                  },
+  Widget _buildSubmitIcon({required BuildContext context}) {
+    return BlocBuilder<ChatFieldController, ChatFieldState>(
+        builder: (context, state) {
+      return !state.isTyping
+          ? SvgIcon(iconPath: Assets.images.headphones.path)
+          : BlocBuilder<ChatFieldController, ChatFieldState>(
+              builder: (context, state) {
+              return Container(
+                width: 32,
+                height: 32,
+                decoration: const BoxDecoration(
+                  color: AppColors.dark,
+                  shape: BoxShape.circle,
                 ),
-              ),
-            );
-          });
+                child: SvgIcon(
+                  iconPath: state.isLoadingResponse
+                      ? Assets.images.loading.path
+                      : Assets.images.arrowUp.path,
+                  iconSize: state.isLoadingResponse ? 10 : 20,
+                  colorFilter:
+                      const ColorFilter.mode(AppColors.light, BlendMode.srcIn),
+                  onPressed: () => state.isLoadingResponse
+                      ? {}
+                      : _sendMessage(context, state.images),
+                ),
+              );
+            });
+    });
   }
 
-  void _sendMessage(List<XFile> images) {
-    ref.read(chatFieldControllerProvider.notifier).sendMessage(
+  void _sendMessage(BuildContext context, List<XFile> images) {
+    context.read<ChatFieldController>().sendMessage(
         geminiModel: GenerativeModel(
             model: 'gemini-1.5-flash', apiKey: Env.geminiApiKey),
         content: _chatTextController.text.trim(),

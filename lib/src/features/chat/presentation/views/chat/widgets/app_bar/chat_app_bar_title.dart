@@ -1,12 +1,10 @@
 part of '../../chat_screen.dart';
 
-class ChatAppBarTitle extends ConsumerWidget {
+class ChatAppBarTitle extends StatelessWidget {
   const ChatAppBarTitle({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var currentAiModel = ref.watch(
-        chatScreenControllerProvider.select((state) => state.currentAiModel));
+  Widget build(BuildContext context) {
     return CustomPopup(
       showArrow: false,
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -30,24 +28,31 @@ class ChatAppBarTitle extends ConsumerWidget {
           shrinkWrap: true,
           itemCount: aiModels.length,
           itemBuilder: (context, index) =>
-              _buildModelItem(index: index, ref: ref),
+              _buildModelItem(context: context, index: index),
           separatorBuilder: (context, index) => const Divider(),
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text.rich(
-            TextSpan(
-              children: [
+          BlocBuilder<ChatScreenController, ChatScreenState>(
+            buildWhen: (previous, current) {
+              return previous.currentAiModel != current.currentAiModel;
+            },
+            builder: (context, state) {
+              return Text.rich(
                 TextSpan(
-                    text: 'Ask AI '.hardcoded, style: AppStyles.heading4()),
-                TextSpan(
-                    text: currentAiModel.name.substring(3),
-                    style: AppStyles.heading4()
-                        .copyWith(color: AppColors.shipGray)),
-              ],
-            ),
+                  children: [
+                    TextSpan(
+                        text: 'Ask AI '.hardcoded, style: AppStyles.heading4()),
+                    TextSpan(
+                        text: state.currentAiModel.name.substring(3),
+                        style: AppStyles.heading4()
+                            .copyWith(color: AppColors.shipGray)),
+                  ],
+                ),
+              );
+            },
           ),
           SvgIcon(
             iconPath: Assets.images.arrow.path,
@@ -60,22 +65,19 @@ class ChatAppBarTitle extends ConsumerWidget {
     );
   }
 
-  Widget _buildModelItem({required int index, required WidgetRef ref}) {
+  Widget _buildModelItem({required BuildContext context, required int index}) {
     final aiModel = aiModels[index];
     return InkWell(
-      onTap: () =>
-          ref.read(chatScreenControllerProvider.notifier).setAiModel(aiModel),
+      onTap: () => context.read<ChatScreenController>().setAiModel(aiModel),
       child: Row(
         children: [
-          Consumer(
-            builder: (context, ref, child) {
-              var currentAiModel = ref.watch(chatScreenControllerProvider
-                  .select((state) => state.currentAiModel));
+          BlocBuilder<ChatScreenController, ChatScreenState>(
+            builder: (context, state) {
               return SvgIcon(
                 iconPath: Assets.images.check.path,
                 iconSize: 18,
                 colorFilter: ColorFilter.mode(
-                    aiModel == currentAiModel
+                    aiModel == state.currentAiModel
                         ? AppColors.dark
                         : AppColors.light,
                     BlendMode.srcIn),

@@ -1,15 +1,9 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../states/chat_drawer_state.dart';
 
-part 'chat_drawer_controller.g.dart';
-
-@riverpod
-class ChatDrawerController extends _$ChatDrawerController {
-  @override
-  ChatDrawerState build() {
-    return ChatDrawerState.defaultState;
-  }
+class ChatDrawerController extends Cubit<ChatDrawerState> {
+  ChatDrawerController() : super(ChatDrawerState.defaultState);
 
   void setCollapseWhenFocus(bool hasFocus) {
     if (hasFocus && state.isCollapse) {
@@ -20,6 +14,6 @@ class ChatDrawerController extends _$ChatDrawerController {
   }
 
   void setCollapse(bool value) {
-    state = state.copyWith(isCollapse: true);
+    emit(state.copyWith(isCollapse: true));
   }
 }

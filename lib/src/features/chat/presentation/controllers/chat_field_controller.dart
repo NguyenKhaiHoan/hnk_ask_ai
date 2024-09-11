@@ -1,18 +1,14 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:hnk_ask_ai/src/core/config/config.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../application/chat_service.dart';
 import '../states/chat_field_state.dart';
 
-part 'chat_field_controller.g.dart';
+class ChatFieldController extends Cubit<ChatFieldState> {
+  final ChatService chatService;
 
-@riverpod
-class ChatFieldController extends _$ChatFieldController {
-  @override
-  ChatFieldState build() {
-    return ChatFieldState.defaultState;
-  }
+  ChatFieldController(this.chatService) : super(ChatFieldState.defaultState);
 
   void setHiddenIconsWhenFocus(bool hasFocus) {
     if (hasFocus && state.isHiddenIcons) {
@@ -23,7 +19,7 @@ class ChatFieldController extends _$ChatFieldController {
   }
 
   void setHiddenIcons(bool value) {
-    state = state.copyWith(isHiddenIcons: value);
+    emit(state.copyWith(isHiddenIcons: value));
   }
 
   void toggleHiddenIcons() {
@@ -37,18 +33,17 @@ class ChatFieldController extends _$ChatFieldController {
   }
 
   void setTyping(bool value) {
-    state = state.copyWith(isTyping: value);
+    emit(state.copyWith(isTyping: value));
   }
 
   Future<void> addImage() async {
-    final chatService = ref.read(chatServiceProvider);
     final pickedImage = await chatService.pickImage();
     if (pickedImage == null) {
       return;
     }
     final images = state.images;
     images.add(pickedImage);
-    state = state.copyWith(images: images);
+    emit(state.copyWith(images: images));
   }
 
   void sendMessage({
@@ -56,7 +51,6 @@ class ChatFieldController extends _$ChatFieldController {
     required GenerativeModel geminiModel,
     required String content,
   }) async {
-    final chatService = ref.read(chatServiceProvider);
     setLoadingResponse(true);
     await chatService.sendMessage(
         geminiModel: geminiModel, content: content, image: image);
@@ -64,6 +58,6 @@ class ChatFieldController extends _$ChatFieldController {
   }
 
   void setLoadingResponse(bool value) {
-    state = state.copyWith(isLoadingResponse: value);
+    emit(state.copyWith(isLoadingResponse: value));
   }
 }

@@ -8,19 +8,22 @@ class ChatScreenState {
   final bool isNewChat;
   final AiModel currentAiModel;
 
-  ChatScreenState({required this.isNewChat, required this.currentAiModel});
+  ChatScreenState({
+    required this.isNewChat,
+    required this.currentAiModel,
+  });
 
   static ChatScreenState get defaultState => ChatScreenState(
         isNewChat: false,
         currentAiModel: AiModel(
-            type: AiType.gemini15Flash,
-            name: 'AI-1.5 Flash'.hardcoded,
-            iconPath: Assets.images.gpt35.path),
+          type: AiType.gemini15Flash,
+          name: 'AI-1.5 Flash'.hardcoded,
+          iconPath: Assets.images.gpt35.path,
+        ),
       );
 
   ChatScreenState copyWith({
     bool? isNewChat,
-    bool? isLoadingResponse,
     AiModel? currentAiModel,
   }) {
     return ChatScreenState(

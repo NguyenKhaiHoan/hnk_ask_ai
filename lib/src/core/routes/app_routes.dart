@@ -1,12 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/src/core/routes/routes_name.dart';
 import 'package:hnk_ask_ai/src/features/auth/presentation/views/enter_infomation/enter_infomation_screen.dart';
-import 'package:hnk_ask_ai/src/features/photo/presentation/views/photo/photo_screen.dart';
 
 import '../../features/auth/presentation/views/login/login_screen.dart';
 import '../../features/auth/presentation/views/sign_up/sign_up_screen.dart';
 import '../../features/auth/presentation/views/welcome/welcome_screen.dart';
 import '../../features/chat/presentation/views/chat/chat_screen.dart';
+import '../../features/photo/presentation/views/photo/photo_screen.dart';
 import '../../features/setting/presentation/views/setting/setting_screen.dart';
 
 class AppRoutes {

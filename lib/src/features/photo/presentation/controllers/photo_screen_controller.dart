@@ -1,20 +1,13 @@
 import 'dart:math';
 
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'states/photo_screen_state.dart';
+import '../states/photo_screen_state.dart';
 
-part 'photo_screen_controller.g.dart';
-
-@riverpod
-class PhotoScreenController extends _$PhotoScreenController {
-  @override
-  PhotoScreenState build() {
-    return PhotoScreenState.defaultState;
-  }
-
+class PhotoScreenController extends Cubit<PhotoScreenState> {
+  PhotoScreenController() : super(PhotoScreenState.defaultState);
   void setRandomPage() {
     final randomPage = Random().nextInt(5);
-    state = state.copyWith(randomPage: randomPage);
+    emit(state.copyWith(randomPage: randomPage));
   }
 }

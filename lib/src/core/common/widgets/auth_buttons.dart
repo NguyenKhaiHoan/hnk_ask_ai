@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hnk_ask_ai/gen/assets.gen.dart';
 import 'package:hnk_ask_ai/src/core/common/widgets/custom_button.dart';
-import 'package:hnk_ask_ai/src/core/config/config.dart';
 import 'package:hnk_ask_ai/src/core/constants/constant.dart';
 import 'package:hnk_ask_ai/src/core/enums/button_type.dart';
 import 'package:hnk_ask_ai/src/core/extensions/string_extenstion.dart';
+import 'package:hnk_ask_ai/src/features/auth/presentation/controllers/auth_controller.dart';
 
 class AuthButtons extends StatelessWidget {
   final bool hasOnlySocialButton;
@@ -81,19 +81,15 @@ class GoogleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        return CustomButton(
-          text: 'Continue with Google'.hardcoded,
-          textColor: textColor ?? AppColors.light,
-          iconPath: Assets.images.google.path,
-          backgroundColor: backgroundColor ?? AppColors.grey,
-          iconSize: 16,
-          notNeedColorFilter: true,
-          buttonType: type ?? ButtonType.elevated,
-          onPressed: () => ref.read(authServiceProvider).signInWithGoogle(),
-        );
-      },
+    return CustomButton(
+      text: 'Continue with Google'.hardcoded,
+      textColor: textColor ?? AppColors.light,
+      iconPath: Assets.images.google.path,
+      backgroundColor: backgroundColor ?? AppColors.grey,
+      iconSize: 16,
+      notNeedColorFilter: true,
+      buttonType: type ?? ButtonType.elevated,
+      onPressed: () => context.read<AuthController>().signInWithGoogle(),
     );
   }
 }
@@ -111,7 +107,7 @@ class EmailSignUpButton extends StatelessWidget {
       iconSize: 20,
       colorFilter: const ColorFilter.mode(AppColors.light, BlendMode.srcIn),
       buttonType: ButtonType.elevated,
-      onPressed: () => context.goNamed('signUp'),
+      onPressed: () => context.pushNamed('signUp'),
     );
   }
 }
@@ -126,7 +122,7 @@ class LoginButton extends StatelessWidget {
       textColor: AppColors.light,
       backgroundColor: AppColors.light,
       buttonType: ButtonType.outlined,
-      onPressed: () => context.goNamed('login'),
+      onPressed: () => context.pushNamed('login'),
     );
   }
 }
