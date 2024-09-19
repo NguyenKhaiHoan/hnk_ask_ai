@@ -1,16 +1,5 @@
-# hnk_ask_ai
+# Ask AI
 
-A new Flutter project.
+## Tổng quan
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Project được áp dụng kiến trúc **(Riverpod Architecture)** được giới thiệu bởi [Code With Andrea](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/), sử dụng package **Riverpod** để quản lý trạng thái và **Retrofit** để thực hiện các yêu cầu API. Có tích hợp Firebase để xác thực và lưu trữ dữ liệu.
